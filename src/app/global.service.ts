@@ -10,10 +10,10 @@ export class GlobalService {
     private api: string = '';
     constructor() {
         if (environment.production) {
-            this.hostUrl = 'https://coarkpro.com/inmobiliario-yii-api/';
+            this.hostUrl = 'https://coarkpro.com/portal-api/';
             this.api = 'web/';
         } else {
-            this.hostUrl = 'http://localhost/inmobiliario-yii-api/';
+            this.hostUrl = 'http://localhost/portal-api/';
             this.api = 'web/index-test.php/';
         }
     }

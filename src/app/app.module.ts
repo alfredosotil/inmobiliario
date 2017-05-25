@@ -16,11 +16,20 @@ import { UtilService } from './util.service';
 import { AuthService } from './services/auth.service';
 
 import { HomeComponent } from './components/home/home.component';
-import { ContactusComponent } from './components/contactus/contactus.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { LoginComponent } from './components/login/login.component';
+import { WhatwedoComponent } from './Components/whatwedo/whatwedo.component';
+import { PropertiesComponent } from './Components/properties/properties.component';
+import { ViewmapComponent } from './Components/viewmap/viewmap.component';
+import { OffersComponent } from './Components/offers/offers.component';
+import { ContactusComponent } from './Components/contactus/contactus.component';
 
 const PUBLIC_ROUTES = [
     { path: 'home', component: HomeComponent },
+    { path: 'whatwedo', component: WhatwedoComponent },
+    { path: 'properties', component: PropertiesComponent },
+    { path: 'viewmap', component: ViewmapComponent },
+    { path: 'offers', component: OffersComponent },
     { path: 'contactus', component: ContactusComponent },
     //    { path: 'profile', component: ProfileComponent },
     //    { path: 'p404', component: p404Component },
@@ -41,7 +50,7 @@ const PUBLIC_ROUTES = [
 
 const SECURE_ROUTES = [
     //    { path: '', redirectTo: 'overview', pathMatch: 'full' },
-        { path: 'dashboard', component: DashboardComponent }
+    { path: 'dashboard', component: DashboardComponent }
     //    { path: 'items', component: ItemsComponent },
     //    { path: 'overview', component: OverviewComponent },
     //    { path: 'profile', component: ProfileComponent },
@@ -78,8 +87,13 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
         PublicComponent,
         SecureComponent,
         HomeComponent,
-        ContactusComponent,
-        DashboardComponent
+        DashboardComponent,
+        LoginComponent,
+        WhatwedoComponent,
+        PropertiesComponent,
+        ViewmapComponent,
+        OffersComponent,
+        ContactusComponent
     ],
     imports: [
         BrowserModule,
