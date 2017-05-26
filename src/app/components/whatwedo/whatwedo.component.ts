@@ -12,6 +12,11 @@ export class WhatwedoComponent implements OnInit {
 
     ngOnInit() {
         jQuery('body,html').animate({ scrollTop: 0 }, 800);
+        jQuery("#about_single").owlCarousel({
+            autoPlay: true,
+            singleItem: true,
+            navigation: false,
+        });
         jQuery(".skills li").each(function() {
             jQuery(this).appear(function() {
                 jQuery(this).animate({
@@ -23,6 +28,10 @@ export class WhatwedoComponent implements OnInit {
                     width: b + "%"
                 }, 1300, "linear");
             });
+        });
+        jQuery('#scrolldiv a').on('click', function(e) {
+            e.preventDefault();
+            jQuery('html, body').animate({ scrollTop: jQuery(jQuery(this).data('ref')).offset().top - 91 }, 500, 'linear');
         });
     }
 

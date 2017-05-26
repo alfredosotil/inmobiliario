@@ -62,6 +62,16 @@ export class HomeComponent implements OnInit {
             itemsTablet: [768, 2],
             itemsMobile: [479, 1],
         });
+        jQuery("#our-agent-slider").owlCarousel({
+            autoPlay: 3000,
+            items: 3,
+            pagination: true,
+            navigation: false,
+            itemsDesktop: [1199, 3],
+            itemsDesktopSmall: [979, 2],
+            itemsTablet: [768, 2],
+            itemsMobile: [480, 1],
+        });
         jQuery("#partner_slider_2").owlCarousel({
             autoPlay: 4000,
             items: 6,
@@ -69,6 +79,20 @@ export class HomeComponent implements OnInit {
             pagination: true,
             itemsDesktop: [1199, 4],
             itemsDesktopSmall: [979, 4]
+        });
+        jQuery('#scrolldiv a').on('click', function(e) {
+            e.preventDefault();
+            jQuery('html, body').animate({ scrollTop: jQuery(jQuery(this).data('ref')).offset().top }, 500, 'linear');
+        });
+        jQuery('a[href=".team"]').on("click", function(event) {
+            event.preventDefault();
+            jQuery("#team").addClass("open");
+            jQuery("#team > form > input[type='search']").focus();
+        });
+        jQuery("#team, #team button.close").on("click keyup", function(event) {
+            if (event.target == this || event.target.className == 'close' || event.keyCode == 27) {
+                jQuery(this).removeClass('open');
+            }
         });
 
     }

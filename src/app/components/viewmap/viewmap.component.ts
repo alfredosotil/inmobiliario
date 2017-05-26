@@ -36,6 +36,24 @@ export class ViewmapComponent implements OnInit {
                 jQuery(this).parent().find(".rightLabel").text(rightValue);
             }
         });
+
+        jQuery('input[name="radio-btn"]').wrap('<div class="radio-btn"><i></i></div>');
+        jQuery(".radio-btn").on('click', function() {
+            var _this = jQuery(this),
+                block = _this.parent().parent();
+            block.find('input:radio').attr('checked', false);
+            block.find(".radio-btn").removeClass('checkedRadio');
+            _this.addClass('checkedRadio');
+            _this.find('input:radio').attr('checked', true);
+        });
+        jQuery('input[name="check-box"]').wrap('<div class="check-box"><i></i></div>');
+        jQuery.fn.toggleCheckbox = function() {
+            this.attr('checked', !this.attr('checked'));
+        }
+        jQuery('.check-box').on('click', function() {
+            jQuery(this).find(':checkbox').toggleCheckbox();
+            jQuery(this).toggleClass('checkedBox');
+        });
     }
 
     public initializeMap() {
@@ -53,7 +71,7 @@ export class ViewmapComponent implements OnInit {
         let map = new google.maps.Map(mapElement, mapOptions);
 
         //add locations
-        let locations:Array<any> = [
+        let locations: Array<any> = [
             ['<div class"info-window"><div class="image-label"><img class="img-responsive" src="images/map_image.jpg" alt="featured-properties-5"><label>On Sale</label></div><div class="map-detail"><a href="#"><h4>Pear Apartments</h4></a><p>S California Ave</p><span>Beds:4</span><span> Baths:2</span><span> SqFt:1200</span></div></div>',
                 -37.829000, 144.957000, 'images/map_marker.png'],
             ['<div class"info-window"><div class="image-label"><img class="img-responsive" src="images/map_image.jpg" alt="featured-properties-5"><label>On Sale</label></div><div class="map-detail"><a href="#"><h4>Luxury Family Home</h4></a><p>S California Ave</p><span>Beds:4</span><span> Baths:2</span><span> SqFt:1200</span></div></div>', -37.912495, 144.628143, 'images/map_marker.png'],

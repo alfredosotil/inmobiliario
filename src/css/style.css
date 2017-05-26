@@ -230,7 +230,7 @@ i{ font-size:20px;
 .margin_bottom{ margin-bottom:80px;}
 .margin_top{ margin-top:80px;}
 .padding-bottom-top-120 {
-    padding: 120px 0;
+    padding: 190px 0;
 }
 
 /** Seperators for Headings **/
@@ -3014,8 +3014,8 @@ nav.navbar.bootsnav.sticked .social-icons {
 .check-box i {
     background: url("../images/check_mark.png") no-repeat center center;
     position: absolute;
-    left: 3px;
-    bottom: -15px;
+    left: 1px;
+    bottom: 25px;
     width: 16px;
     height: 16px;
     opacity: .5;
@@ -3035,7 +3035,7 @@ nav.navbar.bootsnav.sticked .social-icons {
     border-bottom-color: #fff;
 }
 .checkedBox i {
-    bottom: 2px;
+    bottom: 6px;
     -webkit-transform:rotateZ(0deg);
     -moz-transform:rotateZ(0deg);
     -o-transform:rotateZ(0deg);
