@@ -6,6 +6,8 @@ import { AuthHttp, AuthConfig, AUTH_PROVIDERS } from 'angular2-jwt';
 import { RouterModule } from '@angular/router';
 import { Ng2MapModule } from 'ng2-map';
 import { AuthGuard } from './auth.guard';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
+import { FileUploader, FileSelectDirective, FileDropDirective } from 'ng2-file-upload';
 
 import { AppComponent } from './app.component';
 import { PublicComponent } from '../app/layouts/public.component';
@@ -23,6 +25,9 @@ import { PropertiesComponent } from './Components/properties/properties.componen
 import { ViewmapComponent } from './Components/viewmap/viewmap.component';
 import { OffersComponent } from './Components/offers/offers.component';
 import { ContactusComponent } from './Components/contactus/contactus.component';
+import { FileuploadComponent } from './components/fileupload/fileupload.component';
+import { RegisteruserComponent } from './components/registeruser/registeruser.component';
+import { RegisterpropertyComponent } from './components/registerproperty/registerproperty.component';
 
 const PUBLIC_ROUTES = [
     { path: 'home', component: HomeComponent },
@@ -31,6 +36,7 @@ const PUBLIC_ROUTES = [
     { path: 'viewmap', component: ViewmapComponent },
     { path: 'offers', component: OffersComponent },
     { path: 'contactus', component: ContactusComponent },
+    { path: 'fileupload', component: FileuploadComponent},
     //    { path: 'profile', component: ProfileComponent },
     //    { path: 'p404', component: p404Component },
     //    { path: 'e500', component: e500Component },
@@ -93,14 +99,20 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
         PropertiesComponent,
         ViewmapComponent,
         OffersComponent,
-        ContactusComponent
+        ContactusComponent,
+        FileSelectDirective,
+        FileDropDirective,
+        FileuploadComponent,
+        RegisteruserComponent,
+        RegisterpropertyComponent
     ],
     imports: [
         BrowserModule,
         FormsModule,
         HttpModule,
         RouterModule.forRoot(APP_ROUTES),
-        Ng2MapModule.forRoot({ apiUrl: 'https://maps.google.com/maps/api/js?key=AIzaSyCuHHxRJnJZ3ft03gkqcHyBRZQ13lJnOII' })
+        Ng2MapModule.forRoot({ apiUrl: 'https://maps.google.com/maps/api/js?key=AIzaSyCuHHxRJnJZ3ft03gkqcHyBRZQ13lJnOII' }),
+        LazyLoadImageModule
     ],
     providers: [
         {

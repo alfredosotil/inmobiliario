@@ -33,6 +33,7 @@
                 "./css/bootsnav.css",
                 "./css/range-Slider.min.css",
                 "./css/style.css",
+                "./css/loading.css",
                 "./css/color/color-1.css"
             ],
             "scripts": [

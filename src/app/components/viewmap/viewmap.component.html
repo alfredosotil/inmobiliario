@@ -218,7 +218,17 @@
 
 <!-- MAP BANNER -->
 <section id="banner-map">
-    <div id="map_canvas"></div>
+    <!--<div id="map_canvas"></div>-->
+    <ng2-map id="map_canvas" [options]="{zoom: 14, scrollwheel: false}" center="Brampton, Canada">
+        <!--[options]="{zoom: 12, scrollwheel: false}"-->
+
+        <!--                <marker *ngFor="let p of properties | filterProperty:gs.inputSearch" [position]="[p.latitude, p.longitude]" [icon]="'images/map-pin-1.png'" (click)="showInfoWindow($event)">
+                    </marker>-->
+        <marker *ngFor="let pos of positions" (click)="showInfoWindow($event)" [position]="pos" [icon]="'images/map_marker.png'"></marker>
+        <info-window id="iw">
+            lat: [[lat]], lng: [[lng]]
+        </info-window>
+    </ng2-map>	
 </section>
 <!-- MAP BANNER -->
 

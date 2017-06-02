@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 declare var jQuery: any;
+import { FileUploader } from 'ng2-file-upload';
 
 @Component({
     selector: 'app-home',
@@ -8,6 +9,8 @@ declare var jQuery: any;
 })
 export class HomeComponent implements OnInit {
 
+    public loaderImg: string = 'images/squares.svg';
+    public uploader: FileUploader = new FileUploader({ url: 'http://localhost:4001/assets/user' });
     constructor() { }
 
     ngOnInit() {
@@ -82,7 +85,7 @@ export class HomeComponent implements OnInit {
         });
         jQuery('#scrolldiv a').on('click', function(e) {
             e.preventDefault();
-            jQuery('html, body').animate({ scrollTop: jQuery(jQuery(this).data('ref')).offset().top }, 500, 'linear');
+            jQuery('html, body').animate({ scrollTop: jQuery(jQuery(this).data('ref')).offset().top + 41 }, 500, 'linear');
         });
         jQuery('a[href=".team"]').on("click", function(event) {
             event.preventDefault();

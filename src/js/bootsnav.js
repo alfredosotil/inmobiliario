@@ -131,10 +131,10 @@
                     var scrollTop = $(window).scrollTop();
                     if (scrollTop > 34) {
                         $(".navbar-fixed").removeClass("no-background");
-                        $("#header-top").hide();
+//                        $("#header-top").hide();
                     } else {
                         $(".navbar-fixed").addClass("no-background");
-                        $("#header-top").show('2500');
+//                        $("#header-top").show('2500');
                     }
                 });
             }
