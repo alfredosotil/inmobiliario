@@ -1,0 +1,57 @@
+<div id="app-secure">
+    <div class="ui left vertical inverted labeled icon sidebar demo menu">
+        <a routerLink="/home" class="item">
+            <i class="home icon"></i>
+            Inicio
+        </a>
+        <a class="item">
+            <i class="dashboard icon"></i>
+            Pizarra
+        </a>
+        <a class="item">
+            <i class="block layout icon"></i>
+            Temas
+        </a>
+        <a class="item">
+            <i class="smile icon"></i>
+            Amigos
+        </a>
+        <a class="item">
+            <i class="calendar icon"></i>
+            Historial
+        </a>
+        <a class="item">
+            <i class="mail icon"></i>
+            Mensajes
+        </a>
+        <a class="item">
+            <i class="chat icon"></i>
+            Discusiones
+        </a>
+        <a class="item">
+            <i class="trophy icon"></i>
+            Logros
+        </a>
+        <a class="item">
+            <i class="shop icon"></i>
+            Tienda
+        </a>
+        <a class="item">
+            <i class="settings icon"></i>
+            Configuracion
+        </a>
+    </div>
+    <div class="dimmed pusher">
+        <div class="ui top attached demo menu">
+            <a class="item" (click)="menuClicked()">
+                <i class="sidebar icon"></i>
+                Menu
+            </a>
+            <a class="item right" (click)="logOut()">
+                <i class="sign out icon"></i>
+                Log out
+            </a>
+        </div>
+        <router-outlet></router-outlet>
+    </div>
+</div>
