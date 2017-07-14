@@ -45,6 +45,7 @@ export class PublicComponent {
     }
 
     ngOnInit() {
+        jQuery.backstretch("destroy", false);
         console.log("public component");
         //        jQuery('.nav-button').on("click", function() {
         //            if (jQuery(this).hasClass('active')) {

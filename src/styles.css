@@ -1,7 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
-/* You can add global styles to this file, and also import other style files */
-body {
-    margin: 0;
+/* margin: 1em 40px; */
+html, body{ 
+    height:100%; 
+    width:100%;
+}
+
+.fill { 
+    min-height: 100%;
+    height: 100%;
+}
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
 }
 
 .uil-cube-css {

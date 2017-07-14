@@ -20,10 +20,9 @@
             "mobile": false,
             "styles": [
                 "styles.css",                
-                "../semantic/dist/semantic.min.css",
-                "../node_modules/semantic-ui-calendar/dist/calendar.min.css",
+                "../node_modules/bootstrap/dist/css/bootstrap.min.css",
                 "../node_modules/animate.css/animate.min.css",
-                "./css/bootstrap.min.css",
+                "./css/bootstrapValidator.min.css",
                 "./css/font-awesome.min.css",
                 "./css/idea_homes._icons.css",
                 "./css/owl.carousel.css",
@@ -38,7 +37,9 @@
             ],
             "scripts": [
                 "./js/jquery.2.2.3.min.js",
-                "./js/bootstrap.min.js",
+                "../node_modules/bootstrap/dist/js/bootstrap.min.js",
+                "./js/bootstrapValidator.min.js",
+                "./js/jquery.backstretch.min.js",
                 "./js/jquery.appear.js",
                 "./js/modernizr.js",
                 "./js/jquery.parallax-1.1.3.js",
@@ -48,7 +49,6 @@
                 "./js/range-Slider.min.js",
                 "./js/selectbox-0.2.min.js",
                 "./js/zelect.js",
-                "./js/gmaps.js",
                 "./js/themepunch/jquery.themepunch.tools.min.js",
                 "./js/themepunch/jquery.themepunch.revolution.min.js",
                 "./js/themepunch/revolution.extension.layeranimation.min.js",
@@ -57,9 +57,7 @@
                 "./js/themepunch/revolution.extension.slideanims.min.js",
                 "./js/themepunch/revolution.extension.video.min.js",
                 "../node_modules/crypto-js/crypto-js.js",
-                "../node_modules/semantic-ui-calendar/dist/calendar.min.js",
-                "../node_modules/wowjs/dist/wow.min.js",
-                "../semantic/dist/semantic.min.js"
+                "../node_modules/wowjs/dist/wow.min.js"
             ],
             "environments": {
                 "source": "environments/environment.ts",

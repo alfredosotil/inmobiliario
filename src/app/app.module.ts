@@ -9,6 +9,7 @@ import { AuthGuard } from './auth.guard';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { FileUploader, FileSelectDirective, FileDropDirective } from 'ng2-file-upload';
 import {LocationStrategy, HashLocationStrategy} from '@angular/common';
+import { TabsModule } from 'ngx-bootstrap';
 
 import { AppComponent } from './app.component';
 import { PublicComponent } from '../app/layouts/public.component';
@@ -21,7 +22,7 @@ import { UserService } from './services/user.service';
 
 import { HomeComponent } from './components/home/home.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { LoginComponent } from './components/login/login.component';
+import { LoginComponent } from './layouts/login.component';
 import { WhatwedoComponent } from './Components/whatwedo/whatwedo.component';
 import { PropertiesComponent } from './Components/properties/properties.component';
 import { ViewmapComponent } from './Components/viewmap/viewmap.component';
@@ -42,7 +43,7 @@ const PUBLIC_ROUTES = [
     //    { path: 'profile', component: ProfileComponent },
     //    { path: 'p404', component: p404Component },
     //    { path: 'e500', component: e500Component },
-        { path: 'login', component: LoginComponent },
+//        { path: 'login', component: LoginComponent },
     //    { path: 'register', component: RegisterComponent },
     //    { path: 'home', component: HomeComponent },
     //    { path: 'benefits', component: BenefitsComponent },
@@ -73,9 +74,10 @@ const SECURE_ROUTES = [
 
 const APP_ROUTES = [
     { path: '', redirectTo: '/home', pathMatch: 'full', },
+    { path: 'login', component: LoginComponent},
     { path: '', component: PublicComponent, data: { title: 'Public Views' }, children: PUBLIC_ROUTES },
     { path: '', component: SecureComponent, canActivate: [AuthGuard], data: { title: 'Secure Views' }, children: SECURE_ROUTES },
-    { path: '**', component: HomeComponent },
+    { path: '**', redirectTo: '/home' },
 ];
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
@@ -116,7 +118,8 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
         HttpModule,
         RouterModule.forRoot(APP_ROUTES),
         Ng2MapModule.forRoot({ apiUrl: 'https://maps.google.com/maps/api/js?key=AIzaSyCuHHxRJnJZ3ft03gkqcHyBRZQ13lJnOII' }),
-        LazyLoadImageModule
+        LazyLoadImageModule,
+        TabsModule.forRoot()
     ],
     providers: [
         {
