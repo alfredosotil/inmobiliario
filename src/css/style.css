@@ -6492,3 +6492,16 @@ section h1 {
         margin-top: 15px;
     }
 }
+.inputGroupContainer .form-control-feedback { 
+      top: 25px !important;
+      right: 0px !important;
+}
+
+.has-feedback .radio-inline .form-control-feedback {
+    top: -8px;
+    right: -40px;
+}
+.form-horizontal .has-feedback .form-control-feedback {
+    top: 0;
+    right: 25px;
+}

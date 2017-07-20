@@ -18,7 +18,6 @@
 
             <div class="row">
                 <div class="col-sm-6 col-sm-offset-3">
-
                     <tabset [justified]="true">
                         <tab heading='Inicia Sesion'>
                             <div class="form-box">
@@ -74,28 +73,77 @@
                                     </div>
                                 </div>
                                 <div class="form-bottom">
-                                    <form id="registration-form">
+                                    <form id="registration-form" class="">
                                         <div class="form-group">
-                                            <label class="sr-only" for="name">Nombres</label>
-                                            <input type="text" name="name" placeholder="Nombres" class="form-first-name form-control" >
+                                            <label class="sr-only control-label" for="ridentificator">Tipo Documento</label>
+                                            <div>
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="rtypeidentificator" value="1" /> DNI
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="rtypeidentificator" value="2" /> EXTRANJERO
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="rtypeidentificator" value="3" /> RUC
+                                                </label>
+                                            </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="sr-only" for="lastname">Apellidos</label>
-                                            <input type="text" name="lastname" placeholder="Apellidos" class="form-last-name form-control" >
+                                            <label class="sr-only" for="ridentificator">N&uacute;mero identificador</label>
+                                            <input type="text" name="ridentificator" placeholder="Número identificador" class="form-control" >
                                         </div>
                                         <div class="form-group">
-                                            <label class="sr-only" for="email">Correo electronico</label>
-                                            <input type="text" name="email" placeholder="Correo electronico" class="form-email form-control" >
+                                            <label class="sr-only" for="rname">Nombres</label>
+                                            <input type="text" name="rname" placeholder="Nombres" class="form-control" >
                                         </div>
                                         <div class="form-group">
-                                            <label class="sr-only" for="password">Clave</label>
-                                            <input type="password" name="password" placeholder="Clave" class="form-email form-control" >
+                                            <label class="sr-only" for="rlastname">Apellidos</label>
+                                            <input type="text" name="rlastname" placeholder="Apellidos" class="form-control" >
                                         </div>
                                         <div class="form-group">
-                                            <label class="sr-only" for="repassword">Repetir clave</label>
-                                            <input type="password" name="repassword" placeholder="Repetir clave" class="form-email form-control" >
+                                            <label class="sr-only control-label">Sexo</label>
+                                            <div>
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="rsex" value="1" /> Hombre
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="rsex" value="2" /> Mujer
+                                                </label>                                                
+                                            </div>
                                         </div>                                        
-                                        <button type="submit" class="btn" (click)="InitValidation($event)"><span [ngClass]="(isLoading$ | async) ? 'fa fa-circle-o-notch fa-spin' : 'fa fa-user-circle-o'"></span> Registrate</button>
+                                        <div class="form-group">                                            
+                                            <div class="input-group date" id="rbirthday">
+                                                <label class="sr-only" for="rbirthday">Fecha de nacimiento</label>
+                                                <input type="text" name="rbirthday" placeholder="Fecha de nacimiento" class="form-control">
+                                                <div class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-th"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="sr-only" for="remail">Correo electronico</label>
+                                            <input type="text" name="remail" placeholder="Correo electrónico" class="form-control" >
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="sr-only" for="rphone">N&uacute;mero telef&oacute;nico</label>
+                                            <input type="text" name="rphone" placeholder="Número telefónico" class="form-control" value="">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="sr-only" for="rusername">Usuario</label>
+                                            <input type="text" name="rusername" placeholder="Usuario" class="form-control" >
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="sr-only" for="rpassword">Clave</label>
+                                            <input type="password" name="rpassword" placeholder="Clave" class="form-control" >
+                                            <div class="progress password-progress">
+                                                <div id="strengthBar" class="progress-bar" role="progressbar" style="width: 0;"></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="sr-only" for="rrepassword">Repetir clave</label>
+                                            <input type="password" name="rrepassword" placeholder="Repetir clave" class="form-email form-control" >
+                                        </div>                                        
+                                        <button type="submit" class="btn" (click)="InitRegisterValidation($event)"><span [ngClass]="(isLoading$ | async) ? 'fa fa-circle-o-notch fa-spin' : 'fa fa-user-circle-o'"></span> Registrate</button>
                                     </form>
                                 </div>
                             </div>
