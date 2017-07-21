@@ -73,48 +73,49 @@
                                     </div>
                                 </div>
                                 <div class="form-bottom">
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm">Small modal</button>
                                     <form id="registration-form" class="">
                                         <div class="form-group">
                                             <label class="sr-only control-label" for="ridentificator">Tipo Documento</label>
                                             <div>
                                                 <label class="radio-inline">
-                                                    <input type="radio" name="rtypeidentificator" value="1" /> DNI
+                                                    <input type="radio" name="rtypeidentificator" value="1" [(ngModel)]="registerForm.identificator_type_id" /> DNI
                                                 </label>
                                                 <label class="radio-inline">
-                                                    <input type="radio" name="rtypeidentificator" value="2" /> EXTRANJERO
+                                                    <input type="radio" name="rtypeidentificator" value="2" [(ngModel)]="registerForm.identificator_type_id" /> EXTRANJERO
                                                 </label>
                                                 <label class="radio-inline">
-                                                    <input type="radio" name="rtypeidentificator" value="3" /> RUC
+                                                    <input type="radio" name="rtypeidentificator" value="3" [(ngModel)]="registerForm.identificator_type_id" /> RUC
                                                 </label>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="sr-only" for="ridentificator">N&uacute;mero identificador</label>
-                                            <input type="text" name="ridentificator" placeholder="Número identificador" class="form-control" >
+                                            <input type="text" name="ridentificator" placeholder="Número identificador" class="form-control" [(ngModel)]="registerForm.identificator" >
                                         </div>
                                         <div class="form-group">
                                             <label class="sr-only" for="rname">Nombres</label>
-                                            <input type="text" name="rname" placeholder="Nombres" class="form-control" >
+                                            <input type="text" name="rname" placeholder="Nombres" class="form-control" [(ngModel)]="registerForm.name" >
                                         </div>
                                         <div class="form-group">
                                             <label class="sr-only" for="rlastname">Apellidos</label>
-                                            <input type="text" name="rlastname" placeholder="Apellidos" class="form-control" >
+                                            <input type="text" name="rlastname" placeholder="Apellidos" class="form-control" [(ngModel)]="registerForm.lastname" >
                                         </div>
                                         <div class="form-group">
                                             <label class="sr-only control-label">Sexo</label>
                                             <div>
                                                 <label class="radio-inline">
-                                                    <input type="radio" name="rsex" value="1" /> Hombre
+                                                    <input type="radio" name="rsex" value="M" [(ngModel)]="registerForm.sex" /> Hombre
                                                 </label>
                                                 <label class="radio-inline">
-                                                    <input type="radio" name="rsex" value="2" /> Mujer
+                                                    <input type="radio" name="rsex" value="F" [(ngModel)]="registerForm.sex" /> Mujer
                                                 </label>                                                
                                             </div>
                                         </div>                                        
                                         <div class="form-group">                                            
                                             <div class="input-group date" id="rbirthday">
                                                 <label class="sr-only" for="rbirthday">Fecha de nacimiento</label>
-                                                <input type="text" name="rbirthday" placeholder="Fecha de nacimiento" class="form-control">
+                                                <input type="text" name="rbirthday" placeholder="Fecha de nacimiento" class="form-control" [(ngModel)]="registerForm.birthday" >
                                                 <div class="input-group-addon">
                                                     <span class="glyphicon glyphicon-th"></span>
                                                 </div>
@@ -122,19 +123,27 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="sr-only" for="remail">Correo electronico</label>
-                                            <input type="text" name="remail" placeholder="Correo electrónico" class="form-control" >
+                                            <input type="text" name="remail" placeholder="Correo electrónico" class="form-control" [(ngModel)]="registerForm.email" >
                                         </div>
                                         <div class="form-group">
                                             <label class="sr-only" for="rphone">N&uacute;mero telef&oacute;nico</label>
-                                            <input type="text" name="rphone" placeholder="Número telefónico" class="form-control" value="">
+                                            <input type="text" name="rphone" placeholder="Número telefónico" class="form-control" [(ngModel)]="registerForm.phone" >
+                                        </div>
+                                        <div class="form-group selectContainer">
+                                            <label class="sr-only control-label">Tipo de usuario</label>
+                                            <select class="form-control input-xxlarge" name="rusertype" [(ngModel)]="registerForm.user_type_id" >
+                                                <option value="">Tipo de usuario</option>
+                                                <option value="3">Persona</option>
+                                                <option value="2">Agente</option>                                                
+                                            </select>
                                         </div>
                                         <div class="form-group">
                                             <label class="sr-only" for="rusername">Usuario</label>
-                                            <input type="text" name="rusername" placeholder="Usuario" class="form-control" >
+                                            <input type="text" name="rusername" placeholder="Usuario" class="form-control" [(ngModel)]="registerForm.username" >
                                         </div>
                                         <div class="form-group">
                                             <label class="sr-only" for="rpassword">Clave</label>
-                                            <input type="password" name="rpassword" placeholder="Clave" class="form-control" >
+                                            <input type="password" name="rpassword" placeholder="Clave" class="form-control" [(ngModel)]="registerForm.password" >
                                             <div class="progress password-progress">
                                                 <div id="strengthBar" class="progress-bar" role="progressbar" style="width: 0;"></div>
                                             </div>
@@ -172,3 +181,10 @@
         </div>
     </div>
 </footer>
+<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      ...
+    </div>
+  </div>
+</div>

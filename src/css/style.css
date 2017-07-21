@@ -6497,6 +6497,10 @@ section h1 {
       right: 0px !important;
 }
 
+.selectContainer .form-control-feedback {
+    right: 25px;
+}
+
 .has-feedback .radio-inline .form-control-feedback {
     top: -8px;
     right: -40px;

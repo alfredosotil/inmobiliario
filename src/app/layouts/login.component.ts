@@ -16,6 +16,9 @@ declare var zxcvbn: any;
 export class LoginComponent implements OnInit {
 
     model = {};
+    registerForm = {};
+    message = {};
+    messages = [];
     isLoading$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
     constructor(
@@ -24,7 +27,13 @@ export class LoginComponent implements OnInit {
         private us: UtilService,
         private auth: AuthService,
         private user: UserService,
-    ) { }
+    ) { 
+        this.messages = [
+            { text: 'Enviando Informacion', icon: 'glyphicon glyphicon-refresh glyphicon-spin' },
+            { text: 'Completado', icon: 'glyphicon glyphicon-ok' },
+            { text: 'Error', icon: 'glyphicon glyphicon-remove' },
+        ];
+    }
 
     ngOnInit() {
         //        console.log('token' + this.us.randomString(64, '#aA!'));
@@ -159,10 +168,12 @@ export class LoginComponent implements OnInit {
             onSuccess: (e) => {
                 e.preventDefault();
                 this.isLoading$.next(false);
-                //                    this.model.accessToken = this.us.randomString(50, '#aA!');
-                //                    console.log('token ' + this.model.accessToken);
-                //                    alert("Registrado");
-                this.login(this.model);
+                this.registerForm['accessToken'] = this.us.randomString(50, '#aA!');
+                //                    this.model['authKey'] = this.us.randomString(50, '#aA');
+                this.registerForm['authKey'] = this.us.generateJWT(this.registerForm['id'], this.registerForm['username'], this.model['password']);
+                console.log('accessToken ' + this.model['accessToken']);
+                console.log('authKey ' + this.model['authKey']);
+                this.registerUser(this.registerForm);
             },
             fields: {
                 rtypeidentificator: {
@@ -260,6 +271,13 @@ export class LoginComponent implements OnInit {
                         regexp: {
                             regexp: '^([2-9])(\\d{2})(-?|\\040?)(\\d{4})( ?|\\040?)(\\d{1,4}?|\\040?)$',
                             message: 'El Teléfono debe contener números unicamente.'
+                        }
+                    }
+                },
+                rusertype: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debes escoger un tipo de usuario.'
                         }
                     }
                 },
@@ -363,6 +381,35 @@ export class LoginComponent implements OnInit {
             jQuery('#registration-form').bootstrapValidator('revalidateField', 'rbirthday');
         });
     };
+
+    private registerUser(o: {}) {
+        var x: any;
+//        jQuery('.ui.page.dimmer').dimmer('show');
+        this.user.create(o)
+            .subscribe(
+            data => x = data,
+            error => alert(error),
+            () => {
+                if (parseInt(x.id) > 0) {
+                    jQuery('.ui.form').form('clear');
+                    this.message = this.messages[1];
+                    setTimeout(function() {
+                        jQuery('.ui.page.dimmer').dimmer('hide');                        
+                    }, 1500);
+                    setTimeout(() => {
+                       this.router.navigate(['/login']).catch(err => console.error(err));                       
+                    }, 1500);
+                    
+                } else {
+                    this.message = this.messages[2];
+                    setTimeout(function() {
+                        jQuery('.ui.page.dimmer').dimmer('hide');
+                    }, 1500);
+                }
+            }
+            );
+        this.message = this.messages[0];
+    }
 
 
     private login(o: {}) {
