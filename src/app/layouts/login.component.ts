@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { GlobalService } from 'app/global.service';
 import { UtilService } from 'app/util.service';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
+import { TabsetComponent } from 'ngx-bootstrap';
 declare var jQuery: any;
 declare var zxcvbn: any;
 
@@ -14,7 +15,7 @@ declare var zxcvbn: any;
     styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-
+    @ViewChild('staticTabs') staticTabs: TabsetComponent;
     model = {};
     registerForm = {};
     message = {};
@@ -27,7 +28,7 @@ export class LoginComponent implements OnInit {
         private us: UtilService,
         private auth: AuthService,
         private user: UserService,
-    ) { 
+    ) {
         this.messages = [
             { text: 'Enviando Informacion', icon: 'glyphicon glyphicon-refresh glyphicon-spin' },
             { text: 'Completado', icon: 'glyphicon glyphicon-ok' },
@@ -52,11 +53,12 @@ export class LoginComponent implements OnInit {
         //            jQuery(this).removeClass('input-error');
         //        });
         jQuery('#rbirthday').datepicker({
-            format: 'dd/mm/yyyy',
+            format: 'yyyy/mm/dd',
             language: "es",
             autoclose: true,
             todayHighlight: true
         });
+        jQuery('.selectpicker').selectpicker();
         this.initFormValidation();
     }
 
@@ -72,7 +74,7 @@ export class LoginComponent implements OnInit {
     }
 
     public InitRegisterValidation(e) {
-        //        jQuery('.ui.secondary.button').addClass('loading');
+        //        jQuery('.ui.secondary.button').addClass('loading');        
         e.preventDefault();
         this.isLoading$.next(true);
         setTimeout(() => {
@@ -167,13 +169,16 @@ export class LoginComponent implements OnInit {
             },
             onSuccess: (e) => {
                 e.preventDefault();
+                //                var $form     = jQuery(e.target);
                 this.isLoading$.next(false);
-                this.registerForm['accessToken'] = this.us.randomString(50, '#aA!');
-                //                    this.model['authKey'] = this.us.randomString(50, '#aA');
-                this.registerForm['authKey'] = this.us.generateJWT(this.registerForm['id'], this.registerForm['username'], this.model['password']);
-                console.log('accessToken ' + this.model['accessToken']);
-                console.log('authKey ' + this.model['authKey']);
+                this.registerForm['access_token'] = this.us.randomString(50, '#aA!');
+                //                this.registerForm['id'] = this.us.randomString(10, '#');
+                //                this.registerForm['accessToken'] = this.us.generateJWT(this.registerForm['id'], this.registerForm['username'], this.model['password']);
+                //                console.log('accessToken ' + this.model['accessToken']);
+                console.log('access_token ' + this.registerForm['access_token']);
+                console.log('birthday ' + this.registerForm['birthday']);
                 this.registerUser(this.registerForm);
+
             },
             fields: {
                 rtypeidentificator: {
@@ -191,7 +196,7 @@ export class LoginComponent implements OnInit {
                             message: 'El número de documento es requerido y no puede ser vacío.'
                         },
                         stringLength: {
-                            min: 10,
+                            min: 6,
                             max: 20,
                             message: 'El número debe ser entre 10 y 20 caracteres.'
                         }
@@ -227,7 +232,7 @@ export class LoginComponent implements OnInit {
                             message: 'La fecha de nacimiento es requerida y no puede ser vacía.'
                         },
                         date: {
-                            format: 'DD/MM/YYYY',
+                            format: 'YYYY/MM/DD',
                             message: 'El valor no es válido.'
                         }
                     }
@@ -333,7 +338,7 @@ export class LoginComponent implements OnInit {
                                 switch (score) {
                                     case 0:
                                         $bar.attr('class', 'progress-bar progress-bar-danger')
-                                            .css('width', '1%');
+                                            .css('width', '0%');
                                         break;
                                     case 1:
                                         $bar.attr('class', 'progress-bar progress-bar-danger')
@@ -377,33 +382,40 @@ export class LoginComponent implements OnInit {
                 }
             }
         });
-        jQuery('#rbirthday').on('changeDate show', function(e) {
+        jQuery('#rbirthday').on('changeDate show', (e) => {
             jQuery('#registration-form').bootstrapValidator('revalidateField', 'rbirthday');
+            this.registerForm['birthday'] = e.format();
         });
     };
 
     private registerUser(o: {}) {
         var x: any;
-//        jQuery('.ui.page.dimmer').dimmer('show');
+        //        jQuery('.ui.page.dimmer').dimmer('show');
+        jQuery('#processing-modal').modal('show');
         this.user.create(o)
             .subscribe(
             data => x = data,
             error => alert(error),
             () => {
                 if (parseInt(x.id) > 0) {
-                    jQuery('.ui.form').form('clear');
+                    //                    jQuery('.ui.form').form('clear');
                     this.message = this.messages[1];
                     setTimeout(function() {
-                        jQuery('.ui.page.dimmer').dimmer('hide');                        
+                        jQuery('#processing-modal').modal('hide');
                     }, 1500);
                     setTimeout(() => {
-                       this.router.navigate(['/login']).catch(err => console.error(err));                       
+                        this.staticTabs.tabs[0].active = true;
+                        jQuery('#strengthBar').attr('class', 'progress-bar progress-bar-danger')
+                            .css('width', '0%');
+                        jQuery('#registration-form')
+                            .bootstrapValidator('disableSubmitButtons', false)  // Enable the submit buttons
+                            .bootstrapValidator('resetForm', true);             // Reset the form
+                        //                       this.router.navigate(['/login']).catch(err => console.error(err));                       
                     }, 1500);
-                    
                 } else {
                     this.message = this.messages[2];
                     setTimeout(function() {
-                        jQuery('.ui.page.dimmer').dimmer('hide');
+                        jQuery('#processing-modal').modal('hide');
                     }, 1500);
                 }
             }
@@ -420,18 +432,19 @@ export class LoginComponent implements OnInit {
             data => x = data,
             error => alert(error),
             () => {
+                
                 let password: string = x[0]['password'];
                 if (password.indexOf(o['password']) === 0) {
                     this.user.login(o).subscribe(
                         data => x = data,
                         error => alert(error),
                         () => {
-                            //                            console.log(x);
+                                                        console.log(x);
                             //                            console.log('login token: ' + x['access_token'])
-                            localStorage.setItem('token', x['access_token']);
+                            localStorage.setItem('token', x['auth_key']);
                             //                            console.log('login token local storage: ' + localStorage.getItem('token'))
                             alert('Registro Exitoso');
-                            this.router.navigate(['/admin']).catch(err => console.error(err));
+                            this.router.navigate(['/dashboard']).catch(err => console.error(err));
                         }
                     );
 

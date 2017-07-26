@@ -298,3 +298,24 @@ footer a:hover, footer a:focus { color: #fff; border-bottom: 1px dotted #fff; }
 	h1, h2 { font-size: 32px; }
 
 }
+.modal-static { 
+    position: fixed;
+    top: 50% !important; 
+    left: 50% !important; 
+    margin-top: -100px;  
+    margin-left: -100px; 
+    overflow: visible !important;
+}
+.modal-static,
+.modal-static .modal-dialog,
+.modal-static .modal-content {
+    width: 200px; 
+    height: 200px; 
+}
+.modal-static .modal-dialog,
+.modal-static .modal-content {
+    padding: 0 !important; 
+    margin: 0 !important;
+}
+.modal-static .modal-content .icon {
+}

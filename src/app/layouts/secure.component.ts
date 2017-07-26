@@ -15,14 +15,14 @@ export class SecureComponent {
         private auth: AuthService
     ){}
     ngOnInit() {
-
+        jQuery.backstretch("destroy");
     }
 
     public menuClicked() {
-        jQuery('.demo.sidebar')
-            .sidebar({ context: jQuery('#app-secure') })
-            .sidebar('setting', 'transition', 'push')
-            .sidebar('toggle');
+//        jQuery('.demo.sidebar')
+//            .sidebar({ context: jQuery('#app-secure') })
+//            .sidebar('setting', 'transition', 'push')
+//            .sidebar('toggle');
     }
 
     public logOut() {

@@ -9,7 +9,7 @@ export class AuthGuard {
     }
 
     canActivate() {
-        if (!this.auth.loggedIn()) { // se cambio el valor ! para pruebas
+        if (this.auth.loggedIn()) { // se cambio el valor ! para pruebas
             return true;
         } else {
             console.log('Token expired or not valid')

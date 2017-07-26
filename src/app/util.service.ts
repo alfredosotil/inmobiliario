@@ -127,47 +127,6 @@ export class UtilService {
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
 
-    public generateJWT(id: string, username: string, password: string) {
-        var header = {
-            "alg": "HS256",
-            "typ": "JWT"
-        };
-
-        var stringifiedHeader = this.CryptoJS.enc.Utf8.parse(JSON.stringify(header));
-        var encodedHeader = this.base64url(stringifiedHeader);
-
-        var data = {
-            "id": id,
-            "username": username
-        };
-
-        var stringifiedData = this.CryptoJS.enc.Utf8.parse(JSON.stringify(data));
-        var encodedData = this.base64url(stringifiedData);
-
-        var token = encodedHeader + "." + encodedData;
-
-        var secret = password;
-
-        var signature = this.CryptoJS.HmacSHA256(token, secret);
-        signature = this.base64url(signature);
-        var signedToken = token + "." + signature;
-        return signedToken;
-    }
-
-    private base64url(source) {
-        // Encode in classical base64
-        let encodedSource = this.CryptoJS.enc.Base64.stringify(source);
-
-        // Remove padding equal characters
-        encodedSource = encodedSource.replace(/=+$/, '');
-
-        // Replace characters according to base64url specifications
-        encodedSource = encodedSource.replace(/\+/g, '-');
-        encodedSource = encodedSource.replace(/\//g, '_');
-
-        return encodedSource;
-    }
-
     public randomString(length, chars) {
         let mask = '';
         if (chars.indexOf('a') > -1) mask += 'abcdefghijklmnopqrstuvwxyz';

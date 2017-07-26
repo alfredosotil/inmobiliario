@@ -18,7 +18,7 @@
 
             <div class="row">
                 <div class="col-sm-6 col-sm-offset-3">
-                    <tabset [justified]="true">
+                    <tabset [justified]="true" #staticTabs>
                         <tab heading='Inicia Sesion'>
                             <div class="form-box">
                                 <div class="form-top">
@@ -73,7 +73,6 @@
                                     </div>
                                 </div>
                                 <div class="form-bottom">
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm">Small modal</button>
                                     <form id="registration-form" class="">
                                         <div class="form-group">
                                             <label class="sr-only control-label" for="ridentificator">Tipo Documento</label>
@@ -131,8 +130,8 @@
                                         </div>
                                         <div class="form-group selectContainer">
                                             <label class="sr-only control-label">Tipo de usuario</label>
-                                            <select class="form-control input-xxlarge" name="rusertype" [(ngModel)]="registerForm.user_type_id" >
-                                                <option value="">Tipo de usuario</option>
+                                            <select title="Tipo de usuario" class="selectpicker dropup form-control input-xxlarge" name="rusertype" [(ngModel)]="registerForm.user_type_id" >
+<!--                                                <option value="" disabled selected>Tipo de usuario</option>-->
                                                 <option value="3">Persona</option>
                                                 <option value="2">Agente</option>                                                
                                             </select>
@@ -144,7 +143,7 @@
                                         <div class="form-group">
                                             <label class="sr-only" for="rpassword">Clave</label>
                                             <input type="password" name="rpassword" placeholder="Clave" class="form-control" [(ngModel)]="registerForm.password" >
-                                            <div class="progress password-progress">
+                                            <div class="progress password-progress" style="height: 5px;">
                                                 <div id="strengthBar" class="progress-bar" role="progressbar" style="width: 0;"></div>
                                             </div>
                                         </div>
@@ -181,10 +180,15 @@
         </div>
     </div>
 </footer>
-<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content">
-      ...
+<div class="modal modal-static fade" id="processing-modal" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="text-center">
+                    <span class="{{message.icon}}" style="font-size: 75px;"></span>
+                    <h4>{{message.text}}</h4>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>

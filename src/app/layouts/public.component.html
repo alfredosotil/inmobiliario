@@ -157,6 +157,9 @@
                             <li *ngIf="!auth.loggedIn()" [routerLinkActive]="['active']">
                                 <a routerLink="/login">log in</a>
                             </li>
+                            <li *ngIf="auth.loggedIn()" [routerLinkActive]="['active']">
+                                <a routerLink="/dashboard">ADMIN</a>
+                            </li>
                             <li *ngIf="auth.loggedIn()" [routerLinkActive]="['current-menu-item']">
                                 <a (click)="logOut()" style="cursor: crosshair">LOG OUT</a>                               
                             </li>   

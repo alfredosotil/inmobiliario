@@ -29,7 +29,6 @@ import { ViewmapComponent } from './Components/viewmap/viewmap.component';
 import { OffersComponent } from './Components/offers/offers.component';
 import { ContactusComponent } from './Components/contactus/contactus.component';
 import { FileuploadComponent } from './components/fileupload/fileupload.component';
-import { RegisteruserComponent } from './components/registeruser/registeruser.component';
 import { RegisterpropertyComponent } from './components/registerproperty/registerproperty.component';
 
 const PUBLIC_ROUTES = [
@@ -60,7 +59,6 @@ const PUBLIC_ROUTES = [
 const SECURE_ROUTES = [
     //    { path: '', redirectTo: 'overview', pathMatch: 'full' },
     { path: 'dashboard', component: DashboardComponent },
-    { path: 'registeruser', component: RegisteruserComponent},
     { path: 'registerproperty', component: RegisterpropertyComponent},
     //    { path: 'items', component: ItemsComponent },
     //    { path: 'overview', component: OverviewComponent },
@@ -109,7 +107,6 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
         FileSelectDirective,
         FileDropDirective,
         FileuploadComponent,
-        RegisteruserComponent,
         RegisterpropertyComponent
     ],
     imports: [
