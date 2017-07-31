@@ -14,7 +14,8 @@ export class ViewmapComponent implements OnInit {
     constructor() { }
 
     ngOnInit() {
-        jQuery('body,html').animate({ scrollTop: 0 }, 800);
+//        jQuery('body,html').animate({ scrollTop: 0 }, 800);
+        jQuery('html, body').animate({ scrollTop: jQuery('#banner-map').offset().top -120 }, 500, 'linear');
 
         jQuery(".intro select").zelect({});
         jQuery(".selectbox").selectbox();

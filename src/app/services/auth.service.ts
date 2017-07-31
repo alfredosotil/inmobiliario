@@ -8,10 +8,12 @@ export class AuthService {
     constructor() { }
 
     public loggedIn() {
+//        console.log('token auth service:' + localStorage.getItem('token'));
         if (localStorage.getItem('token') === undefined || localStorage.getItem('token') === '' ){
             return false;
-        }
-        return tokenNotExpired();
+        }        
+//        return tokenNotExpired();
+        return true;
     }
 
     public logout() {

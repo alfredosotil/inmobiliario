@@ -35,13 +35,11 @@ body{
     font-family: 'Roboto', sans-serif;
     position: relative;
     background: #fff;
-    font-size:15px;
+    /*font-size:15px;*/
     color: #676767;
     overflow-x:hidden;
 }
-html, body{ 
-    height:100%; width:100%;
-}
+
 h2, h3, h4{
     font-family: 'Raleway', sans-serif;
 }
@@ -89,13 +87,13 @@ h1, h2, h3, h4, h5, h6 {
     color: #1f1f1f;
 }
 h2 {
-    font-size: 32px;
+    /*font-size: 32px;*/
 }
-h3 {font-size:24px;}
-h4 {font-size:18px;}
+/*h3 {font-size:24px;}*/
+/*h4 {font-size:18px;}*/
 h2, h3, h4{ font-weight:700; margin:0;}
 h5{
-    font-size:16px;
+    /*font-size:16px;*/
     margin:0;
 }
 .column_filled {
@@ -112,7 +110,8 @@ h5{
 .color_black {
     color:#000;
 }
-i{ font-size:20px;
+i{ 
+    /*font-size:20px;*/
 }
 .bg-color-gray {
     background:#f6f6f6;
@@ -6492,4 +6491,21 @@ section h1 {
         text-align: center;
         margin-top: 15px;
     }
+}
+.inputGroupContainer .form-control-feedback { 
+      top: 25px !important;
+      right: 0px !important;
+}
+
+.selectContainer .form-control-feedback {
+    right: 25px;
+}
+
+.has-feedback .radio-inline .form-control-feedback {
+    top: -8px;
+    right: -40px;
+}
+.form-horizontal .has-feedback .form-control-feedback {
+    top: 0;
+    right: 25px;
 }

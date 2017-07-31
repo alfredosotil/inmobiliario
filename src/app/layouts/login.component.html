@@ -1,0 +1,194 @@
+<div class="top-content" style="">
+
+    <div class="inner-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3 text">
+                    <a routerLink="/home"><h1><strong>Inmobiliario.pe</strong></h1></a> 
+                    <br> Inicia Sesi&oacute;n || Reg&iacute;strate
+                    <div class="description">
+                        <!--                        <p>
+                                                    This is a free responsive <strong>"login and register forms"</strong> template made with Bootstrap. 
+                                                    Download it on <a href="http://azmind.com" target="_blank"><strong>AZMIND</strong></a>, 
+                                                    customize and use it as you like!
+                                                </p>-->
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3">
+                    <tabset [justified]="true" #staticTabs>
+                        <tab heading='Inicia Sesion'>
+                            <div class="form-box">
+                                <div class="form-top">
+                                    <div class="form-top-left">
+                                        <h3>Ingresa a tu cuenta</h3>
+                                        <p>Correo electronico y clave para iniciar:</p>
+                                    </div>
+                                    <div class="form-top-right">
+                                        <i class="fa fa-key"></i>
+                                    </div>
+                                </div>
+                                <div class="form-bottom">
+                                    <form id="login-form">
+                                        <div class="form-group">
+                                            <label class="sr-only" for="email">Correo electronico</label>
+                                            <input type="text" name="email" placeholder="Correo electronico" class="form-control" [(ngModel)]="model.email">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="sr-only" for="password">Clave</label>
+                                            <input type="password" name="password" placeholder="Clave" class="form-control" [(ngModel)]="model.password">
+                                        </div>
+                                        <button type="submit" class="btn" (click)="InitValidation($event)"><span [ngClass]="(isLoading$ | async) ? 'fa fa-circle-o-notch fa-spin' : 'fa fa-sign-in'"></span> Iniciar</button>
+                                    </form>
+
+
+                                </div>
+                            </div>
+                            <div class="social-login">
+                                <h3>...o inicia con:</h3>
+                                <div class="social-login-buttons">
+                                    <a class="btn btn-link-1 btn-link-1-facebook" href="#">
+                                        <i class="fa fa-facebook"></i> Facebook
+                                    </a>
+                                    <a class="btn btn-link-1 btn-link-1-twitter" href="#">
+                                        <i class="fa fa-twitter"></i> Twitter
+                                    </a>
+                                    <a class="btn btn-link-1 btn-link-1-google-plus" href="#">
+                                        <i class="fa fa-google-plus"></i> Google Plus
+                                    </a>
+                                </div>
+                            </div>
+                        </tab>
+                        <tab heading='Registrate'>
+                            <div class="form-box">
+                                <div class="form-top">
+                                    <div class="form-top-left">
+                                        <h3>Registrate ahora</h3>
+                                        <p>Fill in the form below to get instant access:</p>
+                                    </div>
+                                    <div class="form-top-right">
+                                        <i class="fa fa-pencil"></i>
+                                    </div>
+                                </div>
+                                <div class="form-bottom">
+                                    <form id="registration-form" class="">
+                                        <div class="form-group">
+                                            <label class="sr-only control-label" for="ridentificator">Tipo Documento</label>
+                                            <div>
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="rtypeidentificator" value="1" [(ngModel)]="registerForm.identificator_type_id" /> DNI
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="rtypeidentificator" value="2" [(ngModel)]="registerForm.identificator_type_id" /> EXTRANJERO
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="rtypeidentificator" value="3" [(ngModel)]="registerForm.identificator_type_id" /> RUC
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="sr-only" for="ridentificator">N&uacute;mero identificador</label>
+                                            <input type="text" name="ridentificator" placeholder="Número identificador" class="form-control" [(ngModel)]="registerForm.identificator" >
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="sr-only" for="rname">Nombres</label>
+                                            <input type="text" name="rname" placeholder="Nombres" class="form-control" [(ngModel)]="registerForm.name" >
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="sr-only" for="rlastname">Apellidos</label>
+                                            <input type="text" name="rlastname" placeholder="Apellidos" class="form-control" [(ngModel)]="registerForm.lastname" >
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="sr-only control-label">Sexo</label>
+                                            <div>
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="rsex" value="M" [(ngModel)]="registerForm.sex" /> Hombre
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="rsex" value="F" [(ngModel)]="registerForm.sex" /> Mujer
+                                                </label>                                                
+                                            </div>
+                                        </div>                                        
+                                        <div class="form-group">                                            
+                                            <div class="input-group date" id="rbirthday">
+                                                <label class="sr-only" for="rbirthday">Fecha de nacimiento</label>
+                                                <input type="text" name="rbirthday" placeholder="Fecha de nacimiento" class="form-control" [(ngModel)]="registerForm.birthday" >
+                                                <div class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-th"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="sr-only" for="remail">Correo electronico</label>
+                                            <input type="text" name="remail" placeholder="Correo electrónico" class="form-control" [(ngModel)]="registerForm.email" >
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="sr-only" for="rphone">N&uacute;mero telef&oacute;nico</label>
+                                            <input type="text" name="rphone" placeholder="Número telefónico" class="form-control" [(ngModel)]="registerForm.phone" >
+                                        </div>
+                                        <div class="form-group selectContainer">
+                                            <label class="sr-only control-label">Tipo de usuario</label>
+                                            <select title="Tipo de usuario" class="selectpicker dropup form-control input-xxlarge" name="rusertype" [(ngModel)]="registerForm.user_type_id" >
+<!--                                                <option value="" disabled selected>Tipo de usuario</option>-->
+                                                <option value="3">Persona</option>
+                                                <option value="2">Agente</option>                                                
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="sr-only" for="rusername">Usuario</label>
+                                            <input type="text" name="rusername" placeholder="Usuario" class="form-control" [(ngModel)]="registerForm.username" >
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="sr-only" for="rpassword">Clave</label>
+                                            <input type="password" name="rpassword" placeholder="Clave" class="form-control" [(ngModel)]="registerForm.password" >
+                                            <div class="progress password-progress" style="height: 5px;">
+                                                <div id="strengthBar" class="progress-bar" role="progressbar" style="width: 0;"></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="sr-only" for="rrepassword">Repetir clave</label>
+                                            <input type="password" name="rrepassword" placeholder="Repetir clave" class="form-email form-control" >
+                                        </div>                                        
+                                        <button type="submit" class="btn" (click)="InitRegisterValidation($event)"><span [ngClass]="(isLoading$ | async) ? 'fa fa-circle-o-notch fa-spin' : 'fa fa-user-circle-o'"></span> Registrate</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </tab>
+                    </tabset>
+                </div>
+                <!--<div class="col-sm-1 middle-border"></div>-->
+                <!--<div class="col-sm-1"></div>-->
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<footer>
+    <div class="container">
+        <div class="row">
+
+            <div class="col-sm-4 col-sm-offset-4">
+                <div class="footer-border"></div>
+                <!--                <p>Made by Anli Zaimi at <a href="http://azmind.com" target="_blank"><strong>AZMIND</strong></a> 
+                                    having a lot of fun. <i class="fa fa-smile-o"></i></p>-->
+            </div>
+
+        </div>
+    </div>
+</footer>
+<div class="modal modal-static fade" id="processing-modal" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="text-center">
+                    <span class="{{message.icon}}" style="font-size: 75px;"></span>
+                    <h4>{{message.text}}</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
