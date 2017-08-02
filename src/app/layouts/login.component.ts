@@ -1,3 +1,5 @@
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -8,6 +10,7 @@ import { UserService } from '../services/user.service';
 import { TabsetComponent } from 'ngx-bootstrap';
 declare var jQuery: any;
 declare var zxcvbn: any;
+import { LocalStorageService } from 'angular-2-local-storage';
 
 @Component({
     selector: 'app-login',
@@ -28,11 +31,14 @@ export class LoginComponent implements OnInit {
         private us: UtilService,
         private auth: AuthService,
         private user: UserService,
+        private localStorageService: LocalStorageService
     ) {
         this.messages = [
             { text: 'Enviando Informacion', icon: 'glyphicon glyphicon-refresh glyphicon-spin' },
             { text: 'Completado', icon: 'glyphicon glyphicon-ok' },
             { text: 'Error', icon: 'glyphicon glyphicon-remove' },
+            { text: 'Bienvenido', icon: 'glyphicon glyphicon-ok' },
+            { text: 'Clave Incorrecta', icon: 'glyphicon glyphicon-remove' },
         ];
     }
 
@@ -171,12 +177,12 @@ export class LoginComponent implements OnInit {
                 e.preventDefault();
                 //                var $form     = jQuery(e.target);
                 this.isLoading$.next(false);
-//                this.registerForm['access_token'] = this.us.randomString(50, '#aA!');
+                //                this.registerForm['access_token'] = this.us.randomString(50, '#aA!');
                 //                this.registerForm['id'] = this.us.randomString(10, '#');
                 //                this.registerForm['accessToken'] = this.us.generateJWT(this.registerForm['id'], this.registerForm['username'], this.model['password']);
                 //                console.log('accessToken ' + this.model['accessToken']);
-//                console.log('access_token ' + this.registerForm['access_token']);
-//                console.log('birthday ' + this.registerForm['birthday']);
+                //                console.log('access_token ' + this.registerForm['access_token']);
+                //                console.log('birthday ' + this.registerForm['birthday']);
                 this.registerUser(this.registerForm);
 
             },
@@ -391,8 +397,8 @@ export class LoginComponent implements OnInit {
 
     private registerUser(o: {}) {
         var x: any;
-        //        jQuery('.ui.page.dimmer').dimmer('show');
         jQuery('#processing-modal').modal('show');
+        this.message = this.messages[0];
         this.user.create(o)
             .subscribe(
             data => x = data,
@@ -421,38 +427,46 @@ export class LoginComponent implements OnInit {
                 }
             }
             );
-        this.message = this.messages[0];
     }
 
 
     private login(o: {}) {
-        var x: {};
-
-        this.user.search({ column: 'email', data: o['email'] })
-            .subscribe(
+        var x: any;
+        var user: any;
+        jQuery('#processing-modal').modal('show');
+        this.user.login(o).subscribe(
             data => x = data,
-            error => alert(error),
+            error => console.log(error),
             () => {
-
-                let password: string = x[0]['password'];
-                if (password.indexOf(o['password']) === 0) {
-                    this.user.login(o).subscribe(
-                        data => x = data,
-                        error => alert(error),
+                if (typeof x["access_token"] === 'undefined' || x["access_token"] === null) {
+                    // variable is undefined or null
+                    this.message = this.messages[4];
+                    setTimeout(() => {
+                        jQuery('#processing-modal').modal('hide');
+                        jQuery('#login-form')
+                            .bootstrapValidator('disableSubmitButtons', false);  // Enable the submit buttons
+//                            .bootstrapValidator('resetForm', true);             // Reset the form
+                    }, 1500);
+                } else {
+                    this.message = this.messages[3];
+                    this.user.search({ column: 'access_token', data: x["access_token"] }).subscribe(
+                        data => user = data,
+                        error => console.log(error),
                         () => {
-                            console.log(x);
-                            //                            console.log('login token: ' + x['access_token'])
-                            localStorage.setItem('token', x['access_token']);
-                            //                            console.log('login token local storage: ' + localStorage.getItem('token'))
-                            alert('Registro Exitoso');
-                            this.router.navigate(['/dashboard']).catch(err => console.error(err));
+                            this.localStorageService.set('user', user);
                         }
                     );
-
-                } else {
-                    alert('La clave no es correcta');
+                    setTimeout(() => {
+                        jQuery('#processing-modal').modal('hide');
+                        //                    localStorage.setItem('token', x["access_token"]);
+                        //                    localStorage["token"] = x["access_token"];
+                        this.localStorageService.set('token', x["access_token"]);
+                        
+                        this.auth.logIn();
+                        this.router.navigate(['/dashboard']).catch(err => console.error(err));
+                    }, 1500);
                 }
             }
-            );
+        );
     }
 }

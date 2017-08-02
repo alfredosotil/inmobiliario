@@ -1,23 +1,32 @@
 import 'rxjs/add/observable/of';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { tokenNotExpired } from 'angular2-jwt';
+import { LocalStorageService } from 'angular-2-local-storage';
 
 @Injectable()
 export class AuthService {
 
-    constructor() { }
+    private isLoggedIn$: BehaviorSubject<boolean> = new BehaviorSubject(true);
+    constructor(
+        private localStorageService: LocalStorageService
+    ) { }
 
-    public loggedIn() {
-//        console.log('token auth service:' + localStorage.getItem('token'));
-        if (localStorage.getItem('token') === undefined || localStorage.getItem('token') === '' ){
-            return false;
-        }        
-//        return tokenNotExpired();
-        return true;
+    get isLoggedIn() {
+        return this.isLoggedIn$.getValue();
+    }
+
+    public logIn() {
+        if (this.localStorageService.get('token') === undefined || this.localStorageService.get('token') === '') {
+            this.isLoggedIn$.next(false);
+        } else {
+            this.isLoggedIn$.next(true);
+        }
     }
 
     public logout() {
         console.log('Log Out user');
-        localStorage.removeItem('token')
+        this.localStorageService.clearAll();
+        this.isLoggedIn$.next(false);
     }
 }

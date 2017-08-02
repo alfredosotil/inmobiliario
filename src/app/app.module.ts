@@ -10,6 +10,7 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { FileUploader, FileSelectDirective, FileDropDirective } from 'ng2-file-upload';
 import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 import { TabsModule } from 'ngx-bootstrap';
+import { LocalStorageModule, LocalStorageService, } from 'angular-2-local-storage';
 
 import { AppComponent } from './app.component';
 import { PublicComponent } from '../app/layouts/public.component';
@@ -78,7 +79,7 @@ const APP_ROUTES = [
     { path: '**', redirectTo: '/home' },
 ];
 
-export function authHttpServiceFactory(http: Http, options: RequestOptions) {
+export function authHttpServiceFactory(http: Http, options: RequestOptions, localStorage: LocalStorageService) {
     return new AuthHttp(new AuthConfig({
         noJwtError: true,
         noClientCheck: false,
@@ -86,7 +87,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
         headerName: 'Authorization',
         headerPrefix: 'Basic ',
         tokenName: 'token',
-        tokenGetter: () => localStorage.getItem('token') as string,
+        tokenGetter: () => localStorage.get('token') as string,
         globalHeaders: [{ 'Content-Type': 'application/json' }],
     }), http, options);
 }
@@ -116,7 +117,11 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
         RouterModule.forRoot(APP_ROUTES),
         Ng2MapModule.forRoot({ apiUrl: 'https://maps.google.com/maps/api/js?key=AIzaSyCuHHxRJnJZ3ft03gkqcHyBRZQ13lJnOII' }),
         LazyLoadImageModule,
-        TabsModule.forRoot()
+        TabsModule.forRoot(),
+        LocalStorageModule.withConfig({
+            prefix: '',
+            storageType: 'localStorage'
+        })
     ],
     providers: [
         {
@@ -126,14 +131,15 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
         {
             provide: AuthHttp,
             useFactory: authHttpServiceFactory,
-            deps: [Http, RequestOptions]
+            deps: [Http, RequestOptions, LocalStorageService]
         },
         //        AUTH_PROVIDERS,
         AuthGuard,
         AuthService,
         GlobalService,
         UtilService,
-        UserService
+        UserService,
+        LocalStorageService
     ],
     bootstrap: [AppComponent]
 })
