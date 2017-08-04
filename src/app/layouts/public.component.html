@@ -154,13 +154,13 @@
                             <li [routerLinkActive]="['active']">
                                 <a routerLink="/registerproperty">Reg Propiedad</a>
                             </li>-->
-                            <li *ngIf="!auth.isLoggedIn" [routerLinkActive]="['active']">
+                            <li *ngIf="!app.auth.isLoggedIn" [routerLinkActive]="['active']">
                                 <a routerLink="/login">log in</a>
                             </li>
-                            <li *ngIf="auth.isLoggedIn" [routerLinkActive]="['active']">
+                            <li *ngIf="app.auth.isLoggedIn" [routerLinkActive]="['active']">
                                 <a routerLink="/dashboard">ADMIN</a>
                             </li>
-                            <li *ngIf="auth.isLoggedIn" [routerLinkActive]="['current-menu-item']">
+                            <li *ngIf="app.auth.isLoggedIn" [routerLinkActive]="['current-menu-item']">
                                 <a (click)="logOut()" style="cursor: crosshair">LOG OUT</a>                               
                             </li>   
                         </ul>

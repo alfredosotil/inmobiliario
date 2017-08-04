@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../services/auth.service';
+import { AppComponent } from '../app.component';
 declare var jQuery: any;
 
 @Component({
@@ -12,7 +12,7 @@ export class SecureComponent {
 
     constructor(
     private router: Router,
-        private auth: AuthService
+        private app: AppComponent
     ){}
     ngOnInit() {
         jQuery.backstretch("destroy");
@@ -27,6 +27,6 @@ export class SecureComponent {
 
     public logOut() {
         this.router.navigate(['/home']).catch(err => console.error(err));
-        this.auth.logout();
+        this.app.auth.logout();
     }
 }

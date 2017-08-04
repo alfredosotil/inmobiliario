@@ -3,10 +3,8 @@ import 'rxjs/add/observable/throw';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { GlobalService } from 'app/global.service';
-import { UtilService } from 'app/util.service';
-import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
+import { AppComponent } from '../app.component';
 import { TabsetComponent } from 'ngx-bootstrap';
 declare var jQuery: any;
 declare var zxcvbn: any;
@@ -27,10 +25,8 @@ export class LoginComponent implements OnInit {
 
     constructor(
         private router: Router,
-        private gs: GlobalService,
-        private us: UtilService,
-        private auth: AuthService,
         private user: UserService,
+        private app: AppComponent,
         private localStorageService: LocalStorageService
     ) {
         this.messages = [
@@ -132,7 +128,7 @@ export class LoginComponent implements OnInit {
                                 if (email === "") {
                                     email = "no-email"
                                 }
-                                jQuery.ajax(this.gs.getApiRestUrl() + 'user/search?email=' + email, {
+                                jQuery.ajax(this.app.gs.getApiRestUrl() + 'user/search?email=' + email, {
                                     async: false,
                                     type: "GET",
                                     success: function(data) {
@@ -260,7 +256,7 @@ export class LoginComponent implements OnInit {
                                 if (email === "") {
                                     email = "no-email"
                                 }
-                                jQuery.ajax(this.gs.getApiRestUrl() + 'user/search?email=' + email, {
+                                jQuery.ajax(this.app.gs.getApiRestUrl() + 'user/search?email=' + email, {
                                     async: false,
                                     type: "GET",
                                     success: function(data) {
@@ -306,7 +302,7 @@ export class LoginComponent implements OnInit {
                                 if (username === "") {
                                     username = "no-user"
                                 }
-                                jQuery.ajax(this.gs.getApiRestUrl() + 'user/search?username=' + username, {
+                                jQuery.ajax(this.app.gs.getApiRestUrl() + 'user/search?username=' + username, {
                                     async: false,
                                     type: "GET",
                                     success: function(data) {
@@ -445,7 +441,7 @@ export class LoginComponent implements OnInit {
                         jQuery('#processing-modal').modal('hide');
                         jQuery('#login-form')
                             .bootstrapValidator('disableSubmitButtons', false);  // Enable the submit buttons
-//                            .bootstrapValidator('resetForm', true);             // Reset the form
+                        //                            .bootstrapValidator('resetForm', true);             // Reset the form
                     }, 1500);
                 } else {
                     this.message = this.messages[3];
@@ -461,8 +457,7 @@ export class LoginComponent implements OnInit {
                         //                    localStorage.setItem('token', x["access_token"]);
                         //                    localStorage["token"] = x["access_token"];
                         this.localStorageService.set('token', x["access_token"]);
-                        
-                        this.auth.logIn();
+                        this.app.auth.logIn();
                         this.router.navigate(['/dashboard']).catch(err => console.error(err));
                     }, 1500);
                 }

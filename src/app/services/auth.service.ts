@@ -7,17 +7,18 @@ import { LocalStorageService } from 'angular-2-local-storage';
 @Injectable()
 export class AuthService {
 
-    private isLoggedIn$: BehaviorSubject<boolean> = new BehaviorSubject(true);
+    private isLoggedIn$: BehaviorSubject<boolean> = new BehaviorSubject((this.localStorageService.get('token') === null) ? false : true);
     constructor(
         private localStorageService: LocalStorageService
-    ) { }
+    ) {  }
 
     get isLoggedIn() {
         return this.isLoggedIn$.getValue();
     }
 
     public logIn() {
-        if (this.localStorageService.get('token') === undefined || this.localStorageService.get('token') === '') {
+        console.log('token : ' + this.localStorageService.get('token'))
+        if (this.localStorageService.get('token') === null) {
             this.isLoggedIn$.next(false);
         } else {
             this.isLoggedIn$.next(true);

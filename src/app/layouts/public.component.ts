@@ -1,10 +1,7 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import '../../../node_modules/wowjs/dist/wow.min.js';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { GlobalService } from 'app/global.service';
-import { UtilService } from 'app/util.service';
-import { AuthService } from '../services/auth.service';
+import { AppComponent } from '../app.component';
 declare var jQuery: any;
 declare var WOW: any;
 
@@ -20,12 +17,10 @@ export class PublicComponent {
     amountScrolled: number = 700;
 
     constructor(
-        private gs: GlobalService,
-        private us: UtilService,
         private router: Router,
-        private auth: AuthService
+        private app: AppComponent
     ) {
-
+//        this.auth.logIn();
     }
 
     @HostListener('window:scroll', ['$event'])
@@ -1128,6 +1123,6 @@ export class PublicComponent {
 
     public logOut() {
         this.router.navigate(['/home']).catch(err => console.error(err));
-        this.auth.logout();
+        this.app.auth.logout();
     }
 }

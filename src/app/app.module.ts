@@ -134,6 +134,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions, loca
             deps: [Http, RequestOptions, LocalStorageService]
         },
         //        AUTH_PROVIDERS,
+        AppComponent,
         AuthGuard,
         AuthService,
         GlobalService,
