@@ -1,0 +1,849 @@
+/* http://graphicburger.com/simple-line-icons-webfont/ */
+
+@font-face {
+    font-family: Simple-Line-Icons;
+    src: url(fonts/Simple-Line-Icons.eot);
+    src: url(fonts/Simple-Line-Iconsd41d.eot?#iefix) format('embedded-opentype'), url(fonts/Simple-Line-Icons.woff) format('woff'), url(fonts/Simple-Line-Icons.ttf) format('truetype'), url(fonts/Simple-Line-Icons.svg#Simple-Line-Icons) format('svg');
+    font-weight: 400;
+    font-style: normal
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    @font-face {
+        font-family: Simple-Line-Icons;
+        src: url(fonts/Simple-Line-Icons.svg#Simple-Line-Icons) format('svg')
+    }
+}
+
+/*[data-icon]:before {*/
+[class^="d-icon-"], [class*=" d-icon-"] {
+    font-family: Simple-Line-Icons;
+    content: attr(data-icon);
+    speak: none;
+    font-weight: 400;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale
+}
+
+.d-icon-action-redo,
+.d-icon-action-undo,
+.d-icon-anchor,
+.d-icon-arrow-down,
+.d-icon-arrow-left,
+.d-icon-arrow-right,
+.d-icon-arrow-up,
+.d-icon-badge,
+.d-icon-bag,
+.d-icon-ban,
+.d-icon-bar-chart,
+.d-icon-basket,
+.d-icon-basket-loaded,
+.d-icon-bell,
+.d-icon-book-open,
+.d-icon-briefcase,
+.d-icon-bubble,
+.d-icon-bubbles,
+.d-icon-bulb,
+.d-icon-calculator,
+.d-icon-calendar,
+.d-icon-call-end,
+.d-icon-call-in,
+.d-icon-call-out,
+.d-icon-camcorder,
+.d-icon-camera,
+.d-icon-check,
+.d-icon-chemistry,
+.d-icon-clock,
+.d-icon-close,
+.d-icon-cloud-download,
+.d-icon-cloud-upload,
+.d-icon-compass,
+.d-icon-control-end,
+.d-icon-control-forward,
+.d-icon-control-pause,
+.d-icon-control-play,
+.d-icon-control-rewind,
+.d-icon-control-start,
+.d-icon-credit-card,
+.d-icon-crop,
+.d-icon-cup,
+.d-icon-cursor,
+.d-icon-cursor-move,
+.d-icon-diamond,
+.d-icon-direction,
+.d-icon-directions,
+.d-icon-disc,
+.d-icon-dislike,
+.d-icon-doc,
+.d-icon-docs,
+.d-icon-drawer,
+.d-icon-drop,
+.d-icon-earphones,
+.d-icon-earphones-alt,
+.d-icon-emotd-icon-smile,
+.d-icon-energy,
+.d-icon-envelope,
+.d-icon-envelope-letter,
+.d-icon-envelope-open,
+.d-icon-equalizer,
+.d-icon-eye,
+.d-icon-eyeglasses,
+.d-icon-feed,
+.d-icon-film,
+.d-icon-fire,
+.d-icon-flag,
+.d-icon-folder,
+.d-icon-folder-alt,
+.d-icon-frame,
+.d-icon-game-controller,
+.d-icon-ghost,
+.d-icon-globe,
+.d-icon-globe-alt,
+.d-icon-graduation,
+.d-icon-graph,
+.d-icon-grid,
+.d-icon-handbag,
+.d-icon-heart,
+.d-icon-home,
+.d-icon-hourglass,
+.d-icon-info,
+.d-icon-key,
+.d-icon-layers,
+.d-icon-like,
+.d-icon-link,
+.d-icon-list,
+.d-icon-lock,
+.d-icon-lock-open,
+.d-icon-login,
+.d-icon-logout,
+.d-icon-loop,
+.d-icon-magic-wand,
+.d-icon-magnet,
+.d-icon-magnifier,
+.d-icon-magnifier-add,
+.d-icon-magnifier-remove,
+.d-icon-map,
+.d-icon-microphone,
+.d-icon-mouse,
+.d-icon-moustache,
+.d-icon-music-tone,
+.d-icon-music-tone-alt,
+.d-icon-note,
+.d-icon-notebook,
+.d-icon-paper-clip,
+.d-icon-paper-plane,
+.d-icon-pencil,
+.d-icon-picture,
+.d-icon-pie-chart,
+.d-icon-pin,
+.d-icon-plane,
+.d-icon-playlist,
+.d-icon-plus,
+.d-icon-pointer,
+.d-icon-power,
+.d-icon-present,
+.d-icon-printer,
+.d-icon-puzzle,
+.d-icon-question,
+.d-icon-refresh,
+.d-icon-reload,
+.d-icon-rocket,
+.d-icon-screen-desktop,
+.d-icon-screen-smartphone,
+.d-icon-screen-tablet,
+.d-icon-settings,
+.d-icon-share,
+.d-icon-share-alt,
+.d-icon-shield,
+.d-icon-shuffle,
+.d-icon-size-actual,
+.d-icon-size-fullscreen,
+.d-icon-social-dribbble,
+.d-icon-social-dropbox,
+.d-icon-social-facebook,
+.d-icon-social-tumblr,
+.d-icon-social-twitter,
+.d-icon-social-youtube,
+.d-icon-speech,
+.d-icon-speedometer,
+.d-icon-star,
+.d-icon-support,
+.d-icon-symbol-female,
+.d-icon-symbol-male,
+.d-icon-tag,
+.d-icon-target,
+.d-icon-trash,
+.d-icon-trophy,
+.d-icon-umbrella,
+.d-icon-user,
+.d-icon-user-female,
+.d-icon-user-follow,
+.d-icon-user-following,
+.d-icon-user-unfollow,
+.d-icon-users,
+.d-icon-vector,
+.d-icon-volume-1,
+.d-icon-volume-2,
+.d-icon-volume-off,
+.d-icon-wallet,
+.d-icon-wrench {
+    font-family: Simple-Line-Icons;
+    speak: none;
+    font-style: normal;
+    font-weight: 400;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased
+}
+
+.d-icon-user-female:before {
+    content: "\e000"
+}
+
+.d-icon-user-follow:before {
+    content: "\e002"
+}
+
+.d-icon-user-following:before {
+    content: "\e003"
+}
+
+.d-icon-user-unfollow:before {
+    content: "\e004"
+}
+
+.d-icon-trophy:before {
+    content: "\e006"
+}
+
+.d-icon-screen-smartphone:before {
+    content: "\e010"
+}
+
+.d-icon-screen-desktop:before {
+    content: "\e011"
+}
+
+.d-icon-plane:before {
+    content: "\e012"
+}
+
+.d-icon-notebook:before {
+    content: "\e013"
+}
+
+.d-icon-moustache:before {
+    content: "\e014"
+}
+
+.d-icon-mouse:before {
+    content: "\e015"
+}
+
+.d-icon-magnet:before {
+    content: "\e016"
+}
+
+.d-icon-energy:before {
+    content: "\e020"
+}
+
+.d-icon-emotd-icon-smile:before {
+    content: "\e021"
+}
+
+.d-icon-disc:before {
+    content: "\e022"
+}
+
+.d-icon-cursor-move:before {
+    content: "\e023"
+}
+
+.d-icon-crop:before {
+    content: "\e024"
+}
+
+.d-icon-credit-card:before {
+    content: "\e025"
+}
+
+.d-icon-chemistry:before {
+    content: "\e026"
+}
+
+.d-icon-user:before {
+    content: "\e005"
+}
+
+.d-icon-speedometer:before {
+    content: "\e007"
+}
+
+.d-icon-social-youtube:before {
+    content: "\e008"
+}
+
+.d-icon-social-twitter:before {
+    content: "\e009"
+}
+
+.d-icon-social-tumblr:before {
+    content: "\e00a"
+}
+
+.d-icon-social-facebook:before {
+    content: "\e00b"
+}
+
+.d-icon-social-dropbox:before {
+    content: "\e00c"
+}
+
+.d-icon-social-dribbble:before {
+    content: "\e00d"
+}
+
+.d-icon-shield:before {
+    content: "\e00e"
+}
+
+.d-icon-screen-tablet:before {
+    content: "\e00f"
+}
+
+.d-icon-magic-wand:before {
+    content: "\e017"
+}
+
+.d-icon-hourglass:before {
+    content: "\e018"
+}
+
+.d-icon-graduation:before {
+    content: "\e019"
+}
+
+.d-icon-ghost:before {
+    content: "\e01a"
+}
+
+.d-icon-game-controller:before {
+    content: "\e01b"
+}
+
+.d-icon-fire:before {
+    content: "\e01c"
+}
+
+.d-icon-eyeglasses:before {
+    content: "\e01d"
+}
+
+.d-icon-envelope-open:before {
+    content: "\e01e"
+}
+
+.d-icon-envelope-letter:before {
+    content: "\e01f"
+}
+
+.d-icon-bell:before {
+    content: "\e027"
+}
+
+.d-icon-badge:before {
+    content: "\e028"
+}
+
+.d-icon-anchor:before {
+    content: "\e029"
+}
+
+.d-icon-wallet:before {
+    content: "\e02a"
+}
+
+.d-icon-vector:before {
+    content: "\e02b"
+}
+
+.d-icon-speech:before {
+    content: "\e02c"
+}
+
+.d-icon-puzzle:before {
+    content: "\e02d"
+}
+
+.d-icon-printer:before {
+    content: "\e02e"
+}
+
+.d-icon-present:before {
+    content: "\e02f"
+}
+
+.d-icon-playlist:before {
+    content: "\e030"
+}
+
+.d-icon-pin:before {
+    content: "\e031"
+}
+
+.d-icon-picture:before {
+    content: "\e032"
+}
+
+.d-icon-map:before {
+    content: "\e033"
+}
+
+.d-icon-layers:before {
+    content: "\e034"
+}
+
+.d-icon-handbag:before {
+    content: "\e035"
+}
+
+.d-icon-globe-alt:before {
+    content: "\e036"
+}
+
+.d-icon-globe:before {
+    content: "\e037"
+}
+
+.d-icon-frame:before {
+    content: "\e038"
+}
+
+.d-icon-folder-alt:before {
+    content: "\e039"
+}
+
+.d-icon-film:before {
+    content: "\e03a"
+}
+
+.d-icon-feed:before {
+    content: "\e03b"
+}
+
+.d-icon-earphones-alt:before {
+    content: "\e03c"
+}
+
+.d-icon-earphones:before {
+    content: "\e03d"
+}
+
+.d-icon-drop:before {
+    content: "\e03e"
+}
+
+.d-icon-drawer:before {
+    content: "\e03f"
+}
+
+.d-icon-docs:before {
+    content: "\e040"
+}
+
+.d-icon-directions:before {
+    content: "\e041"
+}
+
+.d-icon-direction:before {
+    content: "\e042"
+}
+
+.d-icon-diamond:before {
+    content: "\e043"
+}
+
+.d-icon-cup:before {
+    content: "\e044"
+}
+
+.d-icon-compass:before {
+    content: "\e045"
+}
+
+.d-icon-call-out:before {
+    content: "\e046"
+}
+
+.d-icon-call-in:before {
+    content: "\e047"
+}
+
+.d-icon-call-end:before {
+    content: "\e048"
+}
+
+.d-icon-calculator:before {
+    content: "\e049"
+}
+
+.d-icon-bubbles:before {
+    content: "\e04a"
+}
+
+.d-icon-briefcase:before {
+    content: "\e04b"
+}
+
+.d-icon-book-open:before {
+    content: "\e04c"
+}
+
+.d-icon-basket-loaded:before {
+    content: "\e04d"
+}
+
+.d-icon-basket:before {
+    content: "\e04e"
+}
+
+.d-icon-bag:before {
+    content: "\e04f"
+}
+
+.d-icon-action-undo:before {
+    content: "\e050"
+}
+
+.d-icon-action-redo:before {
+    content: "\e051"
+}
+
+.d-icon-wrench:before {
+    content: "\e052"
+}
+
+.d-icon-umbrella:before {
+    content: "\e053"
+}
+
+.d-icon-trash:before {
+    content: "\e054"
+}
+
+.d-icon-tag:before {
+    content: "\e055"
+}
+
+.d-icon-support:before {
+    content: "\e056"
+}
+
+.d-icon-size-fullscreen:before {
+    content: "\e057"
+}
+
+.d-icon-size-actual:before {
+    content: "\e058"
+}
+
+.d-icon-shuffle:before {
+    content: "\e059"
+}
+
+.d-icon-share-alt:before {
+    content: "\e05a"
+}
+
+.d-icon-share:before {
+    content: "\e05b"
+}
+
+.d-icon-rocket:before {
+    content: "\e05c"
+}
+
+.d-icon-question:before {
+    content: "\e05d"
+}
+
+.d-icon-pie-chart:before {
+    content: "\e05e"
+}
+
+.d-icon-pencil:before {
+    content: "\e05f"
+}
+
+.d-icon-note:before {
+    content: "\e060"
+}
+
+.d-icon-music-tone-alt:before {
+    content: "\e061"
+}
+
+.d-icon-music-tone:before {
+    content: "\e062"
+}
+
+.d-icon-microphone:before {
+    content: "\e063"
+}
+
+.d-icon-loop:before {
+    content: "\e064"
+}
+
+.d-icon-logout:before {
+    content: "\e065"
+}
+
+.d-icon-login:before {
+    content: "\e066"
+}
+
+.d-icon-list:before {
+    content: "\e067"
+}
+
+.d-icon-like:before {
+    content: "\e068"
+}
+
+.d-icon-home:before {
+    content: "\e069"
+}
+
+.d-icon-grid:before {
+    content: "\e06a"
+}
+
+.d-icon-graph:before {
+    content: "\e06b"
+}
+
+.d-icon-equalizer:before {
+    content: "\e06c"
+}
+
+.d-icon-dislike:before {
+    content: "\e06d"
+}
+
+.d-icon-cursor:before {
+    content: "\e06e"
+}
+
+.d-icon-control-start:before {
+    content: "\e06f"
+}
+
+.d-icon-control-rewind:before {
+    content: "\e070"
+}
+
+.d-icon-control-play:before {
+    content: "\e071"
+}
+
+.d-icon-control-pause:before {
+    content: "\e072"
+}
+
+.d-icon-control-forward:before {
+    content: "\e073"
+}
+
+.d-icon-control-end:before {
+    content: "\e074"
+}
+
+.d-icon-calendar:before {
+    content: "\e075"
+}
+
+.d-icon-bulb:before {
+    content: "\e076"
+}
+
+.d-icon-bar-chart:before {
+    content: "\e077"
+}
+
+.d-icon-arrow-up:before {
+    content: "\e078"
+}
+
+.d-icon-arrow-right:before {
+    content: "\e079"
+}
+
+.d-icon-arrow-left:before {
+    content: "\e07a"
+}
+
+.d-icon-arrow-down:before {
+    content: "\e07b"
+}
+
+.d-icon-ban:before {
+    content: "\e07c"
+}
+
+.d-icon-bubble:before {
+    content: "\e07d"
+}
+
+.d-icon-camcorder:before {
+    content: "\e07e"
+}
+
+.d-icon-camera:before {
+    content: "\e07f"
+}
+
+.d-icon-check:before {
+    content: "\e080"
+}
+
+.d-icon-clock:before {
+    content: "\e081"
+}
+
+.d-icon-close:before {
+    content: "\e082"
+}
+
+.d-icon-cloud-download:before {
+    content: "\e083"
+}
+
+.d-icon-cloud-upload:before {
+    content: "\e084"
+}
+
+.d-icon-doc:before {
+    content: "\e085"
+}
+
+.d-icon-envelope:before {
+    content: "\e086"
+}
+
+.d-icon-eye:before {
+    content: "\e087"
+}
+
+.d-icon-flag:before {
+    content: "\e088"
+}
+
+.d-icon-folder:before {
+    content: "\e089"
+}
+
+.d-icon-heart:before {
+    content: "\e08a"
+}
+
+.d-icon-info:before {
+    content: "\e08b"
+}
+
+.d-icon-key:before {
+    content: "\e08c"
+}
+
+.d-icon-link:before {
+    content: "\e08d"
+}
+
+.d-icon-lock:before {
+    content: "\e08e"
+}
+
+.d-icon-lock-open:before {
+    content: "\e08f"
+}
+
+.d-icon-magnifier:before {
+    content: "\e090"
+}
+
+.d-icon-magnifier-add:before {
+    content: "\e091"
+}
+
+.d-icon-magnifier-remove:before {
+    content: "\e092"
+}
+
+.d-icon-paper-clip:before {
+    content: "\e093"
+}
+
+.d-icon-paper-plane:before {
+    content: "\e094"
+}
+
+.d-icon-plus:before {
+    content: "\e095"
+}
+
+.d-icon-pointer:before {
+    content: "\e096"
+}
+
+.d-icon-power:before {
+    content: "\e097"
+}
+
+.d-icon-refresh:before {
+    content: "\e098"
+}
+
+.d-icon-reload:before {
+    content: "\e099"
+}
+
+.d-icon-settings:before {
+    content: "\e09a"
+}
+
+.d-icon-star:before {
+    content: "\e09b"
+}
+
+.d-icon-symbol-female:before {
+    content: "\e09c"
+}
+
+.d-icon-symbol-male:before {
+    content: "\e09d"
+}
+
+.d-icon-target:before {
+    content: "\e09e"
+}
+
+.d-icon-volume-1:before {
+    content: "\e09f"
+}
+
+.d-icon-volume-2:before {
+    content: "\e0a0"
+}
+
+.d-icon-volume-off:before {
+    content: "\e0a1"
+}
+
+.d-icon-users:before {
+    content: "\e001"
+}

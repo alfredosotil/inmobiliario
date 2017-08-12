@@ -65,35 +65,25 @@ export class LoginComponent implements OnInit {
     }
 
     public InitValidation(e) {
-        //        jQuery('.ui.secondary.button').addClass('loading');
         e.preventDefault();
         this.isLoading$.next(true);
         setTimeout(() => {
-            console.log('initvalid');
             jQuery('#login-form').data('bootstrapValidator').validate();
-            //            this.isLoading$.next(false);
         }, 100);
     }
 
     public InitRegisterValidation(e) {
-        //        jQuery('.ui.secondary.button').addClass('loading');        
         e.preventDefault();
         this.isLoading$.next(true);
         setTimeout(() => {
             console.log('initvalid');
             jQuery('#registration-form').data('bootstrapValidator').validate();
-            //            this.isLoading$.next(false);
         }, 100);
     }
 
     private initFormValidation() {
         jQuery('#login-form').bootstrapValidator({
             message: 'El valor no es correcto',
-            //            feedbackIcons: {
-            //                valid: 'fa fa-check fa-2',
-            //                invalid: 'fa fa-exclamation fa-2',
-            //                validating: 'fa fa-circle-o-notch fa-spin fa-2'
-            //            },
             feedbackIcons: {
                 valid: 'glyphicon glyphicon-ok',
                 invalid: 'glyphicon glyphicon-remove',
@@ -106,9 +96,6 @@ export class LoginComponent implements OnInit {
             onSuccess: (e) => {
                 e.preventDefault();
                 this.isLoading$.next(false);
-                //                    this.model.accessToken = this.us.randomString(50, '#aA!');
-                //                    console.log('token ' + this.model.accessToken);
-                //                    alert("Registrado");
                 this.login(this.model);
             },
             fields: {
@@ -155,11 +142,6 @@ export class LoginComponent implements OnInit {
         });
         jQuery('#registration-form').bootstrapValidator({
             message: 'El valor no es correcto',
-            //            feedbackIcons: {
-            //                valid: 'fa fa-check fa-2',
-            //                invalid: 'fa fa-exclamation fa-2',
-            //                validating: 'fa fa-circle-o-notch fa-spin fa-2'
-            //            },
             feedbackIcons: {
                 valid: 'glyphicon glyphicon-ok',
                 invalid: 'glyphicon glyphicon-remove',
@@ -171,16 +153,8 @@ export class LoginComponent implements OnInit {
             },
             onSuccess: (e) => {
                 e.preventDefault();
-                //                var $form     = jQuery(e.target);
                 this.isLoading$.next(false);
-                //                this.registerForm['access_token'] = this.us.randomString(50, '#aA!');
-                //                this.registerForm['id'] = this.us.randomString(10, '#');
-                //                this.registerForm['accessToken'] = this.us.generateJWT(this.registerForm['id'], this.registerForm['username'], this.model['password']);
-                //                console.log('accessToken ' + this.model['accessToken']);
-                //                console.log('access_token ' + this.registerForm['access_token']);
-                //                console.log('birthday ' + this.registerForm['birthday']);
                 this.registerUser(this.registerForm);
-
             },
             fields: {
                 rtypeidentificator: {
@@ -413,7 +387,6 @@ export class LoginComponent implements OnInit {
                         jQuery('#registration-form')
                             .bootstrapValidator('disableSubmitButtons', false)  // Enable the submit buttons
                             .bootstrapValidator('resetForm', true);             // Reset the form
-                        //                       this.router.navigate(['/login']).catch(err => console.error(err));                       
                     }, 1500);
                 } else {
                     this.message = this.messages[2];
@@ -454,8 +427,6 @@ export class LoginComponent implements OnInit {
                     );
                     setTimeout(() => {
                         jQuery('#processing-modal').modal('hide');
-                        //                    localStorage.setItem('token', x["access_token"]);
-                        //                    localStorage["token"] = x["access_token"];
                         this.localStorageService.set('token', x["access_token"]);
                         this.app.auth.logIn();
                         this.router.navigate(['/dashboard']).catch(err => console.error(err));

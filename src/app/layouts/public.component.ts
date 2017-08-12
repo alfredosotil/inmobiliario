@@ -12,7 +12,7 @@ declare var WOW: any;
     //  styleUrls: ['./public.component.css']
 })
 
-export class PublicComponent {
+export class PublicComponent implements OnInit{
 
     amountScrolled: number = 700;
 
