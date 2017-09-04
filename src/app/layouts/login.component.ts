@@ -76,7 +76,6 @@ export class LoginComponent implements OnInit {
         e.preventDefault();
         this.isLoading$.next(true);
         setTimeout(() => {
-            console.log('initvalid');
             jQuery('#registration-form').data('bootstrapValidator').validate();
         }, 100);
     }
@@ -418,7 +417,7 @@ export class LoginComponent implements OnInit {
                     }, 1500);
                 } else {
                     this.message = this.messages[3];
-                    this.user.search({ column: 'access_token', data: x["access_token"] }).subscribe(
+                    this.user.search('access_token', x["access_token"]).subscribe(
                         data => user = data,
                         error => console.log(error),
                         () => {

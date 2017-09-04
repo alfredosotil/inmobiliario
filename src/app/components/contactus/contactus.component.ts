@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 declare var jQuery: any;
-declare var GMaps: any;
 
 @Component({
     selector: 'app-contactus',
@@ -15,9 +14,8 @@ export class ContactusComponent implements OnInit {
         jQuery('body,html').animate({ scrollTop: 0 }, 800);
     }
     
-    private showInfoWindow(t) {
-        var e = t.target;
-        e.ng2MapComponent.openInfoWindow("iw", e, {})
+    private showInfoWindow($event) {
+//        console.log("$event: ", $event);
     }
 
 }

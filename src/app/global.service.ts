@@ -15,7 +15,7 @@ export class GlobalService {
         } else {
             this.hostUrl = 'http://localhost/inmobiliario-api/';
             this.api = 'web/index-test.php/';
-        }
+        }        
     }
 
     set inputSearch(is: string) {

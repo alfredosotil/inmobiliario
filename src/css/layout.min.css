@@ -1075,7 +1075,7 @@
     }
     .page-sidebar-menu.page-sidebar-menu-hover-submenu>li:hover>.sub-menu {
         margin-left: 195px;
-        margin-top: -78px;
+        margin-top: -82px;
     }
     .page-sidebar-reversed .page-sidebar-menu.page-sidebar-menu-hover-submenu>li:hover>.sub-menu {
         margin-left: -194px!important;
@@ -1263,8 +1263,10 @@
 }
 @media (min-width:992px) {
     .page-content-wrapper {
+        background-color: #2b3b55;
         float: left;
-        width: 100%}
+        width: 100%;
+    }
     .page-content-wrapper .page-content {
         margin-left: 195px;
         margin-top: 0;
@@ -1992,7 +1994,7 @@
     width: 60px;
     height: 60px;
     border-radius: 30px!important;
-    background: #36C6D3;
+    background: #ed6b75;
     box-shadow: 0 1px 4px rgba(0, 0, 0, .2);
     webkit-transition: height .2s, box-shadow .2s;
     -moz-transition: height .2s, box-shadow .2s;

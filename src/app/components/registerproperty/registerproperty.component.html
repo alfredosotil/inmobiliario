@@ -1,3 +1,183 @@
-<p>
-  registerproperty works!
-</p>
+<h1 class="page-title"> 
+    Agrega un nuevo Inmueble
+</h1>
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN SAMPLE FORM PORTLET-->
+        <div class="portlet light ">
+            <div class="portlet-title">
+                <div class="caption font-red-sunglo">
+                    <i class="icon-settings font-red-sunglo"></i>
+                    <span class="caption-subject bold uppercase"> Informacion del Inmueble</span>
+                </div>
+                <div class="actions">
+                    <div class="btn-group">
+                        <a class="btn btn-sm green dropdown-toggle" href="javascript:;" data-toggle="dropdown"> Acciones
+                            <i class="fa fa-angle-down"></i>
+                        </a>
+                        <ul class="dropdown-menu pull-right">
+                            <li>
+                                <a href="javascript:;">
+                                    <i class="fa fa-pencil"></i> Guardar </a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">
+                                    <i class="fa fa-trash-o"></i> Limpiar </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <form role="form">
+                    <div class="form-body">
+                        <div class="form-group selectContainer">
+                            <label class="sr-only control-label">Tipo de usuario</label>
+                            <select title="Tipo de propiedad" class="selectpicker dropup form-control input-xxlarge" name="propertytype" [(ngModel)]="model.property_type_id" >
+                                <option *ngFor="let lpt of listPropertyType let i = index; let last = last;" value="{{lpt.id}}">{{lpt.name}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group selectContainer">
+                            <label class="sr-only control-label">Tipo de usuario</label>
+                            <select title="Estado de la propiedad" class="selectpicker dropup form-control input-xxlarge" name="propertystate" [(ngModel)]="model.property_state_id" >
+                                <option *ngFor="let lps of listPropertyState let i = index; let last = last;" value="{{lps.id}}">{{lps.name}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Precio</label>
+                            <input class="form-control" type="text" placeholder="Precio" name="price" [(ngModel)]="model.price"/> 
+                        </div>
+                        <div class="form-group form-md-radios">
+                            <label>Moneda</label>
+                            <div class="md-radio-inline">
+                                <div class="md-radio">
+                                    <input type="radio" id="radio14" name="money" class="md-radiobtn"/>
+                                    <label for="radio14">
+                                        <span></span>
+                                        <span class="check"></span>
+                                        <span class="box"></span> Soles </label>
+                                </div>
+                                <div class="md-radio has-error">
+                                    <input type="radio" id="radio15" name="money" class="md-radiobtn"/>
+                                    <label for="radio15">
+                                        <span></span>
+                                        <span class="check"></span>
+                                        <span class="box"></span> Dolares </label>
+                                </div>
+                            </div>
+                        </div>                        
+                        <div class="form-group">
+                            <label>Comision</label>
+                            <input class="form-control" type="text" placeholder="%" name="comission" [(ngModel)]="model.comission"/> 
+                        </div>
+                        <div class="form-group">
+                            <label>Area</label>
+                            <input class="form-control" type="text" placeholder="mts2" name="area" [(ngModel)]="model.area"/> 
+                        </div>
+                        <div class="form-group form-md-checkboxes">
+                            <label>Se encuentra amoblado?</label>
+                            <div class="md-checkbox-inline">
+                                <div class="md-checkbox">
+                                    <input type="checkbox" id="isfurnishedcheckbox" class="md-check" name="furnished" [(ngModel)]="model.furnished"/>
+                                    <label for="isfurnishedcheckbox">
+                                        <span class="inc"></span>
+                                        <span class="check"></span>
+                                        <span class="box"></span> Si </label>
+                                </div>                                
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Ba&ntilde;os</label>
+                            <input class="form-control touchspin" type="text" placeholder="número de baños" name="bathroom" [(ngModel)]="model.bathroom"/> 
+                        </div>
+                        <div class="form-group">
+                            <label>Cuartos</label>
+                            <input class="form-control touchspin" type="text" placeholder="número de cuartos" name="bedroom" [(ngModel)]="model.bedroom"/> 
+                        </div>
+                        <div class="form-group">
+                            <label>Estacionamientos</label>
+                            <input class="form-control touchspin" type="text" placeholder="número de estacionamientos" name="garages" [(ngModel)]="model.garages"/> 
+                        </div>
+                        <div class="form-group">
+                            <label>A&ntilde;os de Antig&uuml;edad</label>
+                            <input class="form-control touchspin" type="text" placeholder="años de antigüedad" name="yearsold" [(ngModel)]="model.yearsold"/> 
+                        </div>
+                        <div class="form-group form-md-checkboxes">
+                            <label>Detalles de la propiedad</label>
+                            <div class="row" *ngFor="let group of detailsgroups">
+                                 <!--<div class="col-md-4">-->
+                                 <div class="md-checkbox-inline col-md-4" *ngFor="let dp of group">
+                                 <div class="md-checkbox">
+                                        <input type="checkbox" id="detailpropertycheckbox{{dp.id}}" class="md-check detailsproperty" name="propertydetails" value="{{dp.id}}"/>
+                                        <label for="detailpropertycheckbox{{dp.id}}">
+                                            <span class="inc"></span>
+                                            <span class="check"></span>
+                                            <span class="box"></span> {{dp.name}} </label>
+                                    </div>                                
+                                </div>
+                                <!--</div>-->
+                            </div>
+                        </div>
+                        <div class="form-group">                                            
+                            <label class="" for="date_start">Fecha de inicio</label>
+                            <div class="input-group date datepickerjs">
+                                <input type="text" name="date_start" placeholder="yyyy/mm/dd" class="form-control" [(ngModel)]="model.date_start"/>
+                                <div class="input-group-addon">
+                                    <span class="glyphicon glyphicon-th"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Propietario</label>
+                            <input class="form-control" type="text" placeholder="nombres y apellidos" name="owner" [(ngModel)]="model.owner"/> 
+                        </div>
+                        <div class="form-group">
+                            <label>Correo del propietario</label>
+                            <input class="form-control" type="text" placeholder="propietario@correo.com" name="owner_email" [(ngModel)]="model.owner_email"/> 
+                        </div>
+                        <div class="form-group">
+                            <label>Telefono del propietario</label>
+                            <input class="form-control" type="text" placeholder="celular o fijo" name="owner_phone" [(ngModel)]="model.owner_phone"/> 
+                        </div>
+                        <div class="form-group">
+                            <label>Prioridad</label>
+                            <input class="form-control ionslider" type="text" name="priority" [(ngModel)]="model.priority"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Descripcion</label>
+                            <textarea class="form-control wysihtml5 maxlength" rows="2" maxlength="1000" placeholder="coloca una descripcion precisa del inmueble" name="description" [(ngModel)]="model.description"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Latitud</label>
+                            <input class="form-control" type="text" placeholder="latitud" name="latitude" [(ngModel)]="model.latitude"/> 
+                        </div>
+                        <div class="form-group">
+                            <label>Longitud</label>
+                            <input class="form-control" type="text" placeholder="longitud" name="longitude" [(ngModel)]="model.longitude"/> 
+                        </div>
+                        <div class="form-group">
+                            <label>Referencias</label>
+                            <input class="form-control" type="text" placeholder="referencias cercanas al inmueble" name="references" [(ngModel)]="model.references"/> 
+                        </div>
+                        <div class="form-group">
+                            <label>Mapa</label>
+                            <input placeholder="Busca un lugar" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control" #search [formControl]="searchControl">
+                            <agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom" (mapClick)="mapClicked($event)">
+                                <agm-marker [markerDraggable]="true" [latitude]="latitude" [longitude]="longitude"></agm-marker>
+                            </agm-map>
+                        </div>
+                        <div class="form-group">
+                            <label>Fotos del inmueble</label>
+                            <app-fileupload></app-fileupload>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn blue">Submit</button>
+                        <button type="button" class="btn default">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- END SAMPLE FORM PORTLET-->
+    </div>    
+</div>

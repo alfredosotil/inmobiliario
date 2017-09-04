@@ -3888,7 +3888,7 @@ ul.list li::before {
 .input-group-btn:last-child > .btn-group:not(:last-child) > .btn, 
 .input-group-btn:last-child > .btn:not(:last-child):not(.dropdown-toggle){
     border-radius: 0;
-    font-size: 12px;
+    font-size: 14px;
 }
 span.input-group-btn button {
     color: #fff;
