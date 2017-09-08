@@ -1,6 +1,7 @@
 import { Component, Directive, OnInit } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload';
 import { GlobalService } from 'app/global.service';
+import { LocalStorageService } from 'angular-2-local-storage';
 
 @Component({
     selector: 'app-fileupload',
@@ -17,7 +18,18 @@ export class FileuploadComponent implements OnInit {
 
     constructor(
         private gs: GlobalService,
-    ) { }
+        private localStorageService: LocalStorageService
+    ) {
+        this.uploader.onCompleteItem = (item:any, response:any, status:any, headers:any) => {
+            let arrayImages = JSON.parse(String(this.localStorageService.get("arrayImages")));
+            if (arrayImages === null){
+                arrayImages = [];
+            }
+            let r = JSON.parse(response);
+            arrayImages.push(r.imageFileName);
+            this.localStorageService.set("arrayImages", JSON.stringify(arrayImages))
+        };
+    }
 
     ngOnInit() {
     }

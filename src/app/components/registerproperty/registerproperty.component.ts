@@ -4,6 +4,8 @@ import { PropertyService } from '../../services/property.service';
 import { FormControl } from '@angular/forms';
 import { } from 'googlemaps';
 import { MapsAPILoader } from '@agm/core';
+import { AgmMarker } from '@agm/core';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 //import { Marker } from 'ng2-map';
 //import { RatingComponent } from 'ngx-bootstrap';
 declare var jQuery: any;
@@ -21,9 +23,9 @@ interface marker {
 
 export class RegisterpropertyComponent implements OnInit {
 
-    //    @ViewChild('propertymarker') propertymarker: Marker;
     @ViewChild("search")
     public searchElementRef: ElementRef;
+    private isLoading$: BehaviorSubject<boolean> = new BehaviorSubject(false);
     private model = {};
     private listPropertyType = [];
     private listPropertyState = [];
@@ -91,12 +93,23 @@ export class RegisterpropertyComponent implements OnInit {
                 autoclose: true,
                 todayHighlight: true
             });
-            jQuery(".touchspin").TouchSpin({
-                buttondown_class: "btn blue",
-                buttonup_class: "btn red"
-            });
+            //            jQuery(".touchspin").TouchSpin({
+            //                buttondown_class: "btn blue",
+            //                buttonup_class: "btn red"
+            //            });
             jQuery(".ionslider").ionRangeSlider({
-                grid: !0, from: 5, values: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+                grid: !0,
+                from: 5,
+                values: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                onStart: (data) => {
+                    this.model["priority"] = data.from_value;
+                },
+                onChange: (data) => {
+                    this.model["priority"] = data.from_value;
+                },
+                onFinish: (data) => {
+                    this.model["priority"] = data.from_value;
+                }
             });
             //            jQuery(".wysihtml5").wysihtml5({stylesheets: false});
             jQuery(".maxlength").maxlength({
@@ -105,6 +118,14 @@ export class RegisterpropertyComponent implements OnInit {
             });
             this.setDetailsGroups();
         }, 1000);
+    }
+
+    private getDetailsPropertyChecked() {
+        let checkboxes = [];
+        jQuery(".detailsproperty:checkbox:checked").each(function() {
+            checkboxes.push(jQuery(this).val());
+        });
+        return checkboxes;
     }
 
     //    public hoveringOver(value: number): void {
@@ -127,14 +148,6 @@ export class RegisterpropertyComponent implements OnInit {
     }
 
 
-    //    addMarker() {
-    //        let randomLat = Math.random() * 0.0099 + -12.094613;
-    //        let randomLng = Math.random() * 0.0099 + -77.036394;
-    //        //    this.positions.push([randomLat, randomLng]);
-    //        this.pos = [randomLat, randomLng];
-    //        this.propertymarker.position = [randomLat, randomLng];
-    //        console.log('marker position', this.pos)
-    //    }
     private getListPropertyType() {
         this.ps.listPropertyType().subscribe(
             data => this.listPropertyType = data,
@@ -183,44 +196,224 @@ export class RegisterpropertyComponent implements OnInit {
         console.log('marker init', marker);
     }
 
-    //    private onMapClick(event) {
-    //        this.positions = [];
-    //        //        this.positions.push([event.latLng.lat(), event.latLng.lng()]);
-    //        //        this.positions.push(event.latLng);
-    //
-    //        console.log("property marker position ", this.propertymarker);
-    //        //        this.propertymarker.position.lat = event.latLng        .lat();
-    //        //        this.propertymarker.position.lng = event.latLng.lng();
-    //
-    //        //        this.markerposition = [event.latLng.lat(), event.latLng.lng()];
-    //        event.target.panTo(event.latLng);
-    //        //        var latLng = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng());
-    //        //        this.propertymarker.setPosition(event.latLng);
-    //        console.log("map click ", event);
-    //    }
-
-    private showInfoWindow(event) {
-        console.log("show info window", event);
-    }
-
-    clickedMarker(label: string, index: number) {
-        console.log(`clicked the marker: ${label || index}`)
-    }
-
-    mapClicked($event: any) {
-        console.log('map clicked: ', $event);
+    private markerDraged($event: any) {
+        //        console.log('object ', event);
         this.latitude = $event.coords.lat;
         this.longitude = $event.coords.lng;
-        //        let marker: marker;
-        //        marker.lat = $event.coords.lat
-        //        marker.lng = $event.coords.lng
-        //        this.markers.push(marker);
+        this.model['latitude'] = this.latitude;
+        this.model['longitude'] = this.longitude;
+        this.getAddressLatLng(this.latitude, this.longitude);
     }
 
-    markerDragEnd(m: marker, $event: MouseEvent) {
-        console.log('dragEnd', m, $event);
+    private mapClicked($event: any) {
+        this.latitude = $event.coords.lat;
+        this.longitude = $event.coords.lng;
+        this.model['latitude'] = this.latitude;
+        this.model['longitude'] = this.longitude;
+        this.getAddressLatLng(this.latitude, this.longitude);
     }
 
+    private getAddressLatLng(lat, lng) {
+        let geocoder = new google.maps.Geocoder();
+        let latlng = new google.maps.LatLng(lat, lng);
+        geocoder.geocode({
+            'location': latlng
+        }, (results, status) => {
+            if (status === google.maps.GeocoderStatus.OK) {
+                if (results[1]) {
+                    console.log('', results[1].formatted_address);
+                    this.model['address'] = results[1].formatted_address;
+                } else {
+                    this.model['address'] = 'No se encontro resultados';
+                }
+            } else {
+                this.model['address'] = 'Geocoder failed due to: ' + status;
+            }
+        });
+    }
+
+    public InitNewPropertyValidation(e) {
+        e.preventDefault();
+        this.isLoading$.next(true);
+        console.log("model ", this.model);
+        let detailsProperty = this.getDetailsPropertyChecked();
+        console.log("details property", detailsProperty);
+        setTimeout(() => {
+            //                        jQuery('#new-property-registration-form').data('bootstrapValidator').validate();
+        }, 100);
+    }
+
+    private initFormValidation() {
+        jQuery('#new-property-registration-form').bootstrapValidator({
+            message: 'El valor no es correcto',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            onError: (e) => {
+                console.log('error')
+                this.isLoading$.next(false);
+            },
+            onSuccess: (e) => {
+                e.preventDefault();
+                this.isLoading$.next(false);
+                this.registerProperty(this.model);
+            },
+            fields: {
+                propertytype: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debes escoger un tipo de propiedad.'
+                        }
+                    }
+                },
+                propertystate: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debes escoger un tipo de estado.'
+                        }
+                    }
+                },
+                price: {
+                    // The group will be set as default (.form-group)
+                    validators: {
+                        notEmpty: {
+                            message: 'Debes colocar un monto para esta propiedad.'
+                        },
+                        integer: {
+                            message: 'Debes colocar solo números.'
+                        }
+                    }
+                },
+                money: {
+                    // The group will be set as default (.form-group)
+                    validators: {
+                        notEmpty: {
+                            message: 'Debes seleccionar un tipo de moneda.'
+                        }
+                    }
+                },
+                comission: {
+                    // The group will be set as default (.form-group)
+                    validators: {
+                        notEmpty: {
+                            message: 'Debes colocar una comision para esta propiedad.'
+                        },
+                        integer: {
+                            message: 'Debes colocar solo números.'
+                        }
+                    }
+                },
+                area: {
+                    // The group will be set as default (.form-group)
+                    validators: {
+                        notEmpty: {
+                            message: 'Debes colocar una area para esta propiedad.'
+                        },
+                        integer: {
+                            message: 'Debes colocar solo números.'
+                        }
+                    }
+                },
+                date_start: {
+                    feedbackIcons: 'false',
+                    validators: {
+                        notEmpty: {
+                            message: 'La fecha de inicio es requerida y no puede ser vacía.'
+                        },
+                        date: {
+                            format: 'YYYY/MM/DD',
+                            message: 'El valor no es válido.'
+                        }
+                    },
+                },
+                owner: {
+                    // The group will be set as default (.form-group)
+                    validators: {
+                        notEmpty: {
+                            message: 'El nombre es requerido y no puede ser vacío.'
+                        }
+                    }
+                },
+                owner_email: {
+                    validators: {
+                        notEmpty: {
+                            message: 'El correo es requerido y no puede ser vacio'
+                        },
+                        emailAddress: {
+                            message: 'Este no es un correo valido'
+                        },
+                    }
+                },
+                owner_phone: {
+                    validators: {
+                        notEmpty: {
+                            message: 'El teléfono es requerido y no puede ser vacio'
+                        },
+                        regexp: {
+                            regexp: '^([2-9])(\\d{2})(-?|\\040?)(\\d{4})( ?|\\040?)(\\d{1,4}?|\\040?)$',
+                            message: 'El Teléfono debe contener números unicamente.'
+                        }
+                    }
+                },
+                description: {
+                    // The group will be set as default (.form-group)
+                    validators: {
+                        notEmpty: {
+                            message: 'La descripcion es requerida y no puede ser vacía.'
+                        },
+                        stringLength: {
+                            min: 20,
+                            max: 1000,
+                            message: 'La descripcion debe ser entre 20 y 1000 caracteres.'
+                        }
+                    }
+                },
+                latitude: {
+                    // The group will be set as default (.form-group)
+                    validators: {
+                        notEmpty: {
+                            message: 'La latitud es requerida, selecciona en el mapa.'
+                        }
+                    }
+                },
+                longitude: {
+                    // The group will be set as default (.form-group)
+                    validators: {
+                        notEmpty: {
+                            message: 'La longitud es requerida, selecciona en el mapa.'
+                        }
+                    }
+                },
+                address: {
+                    // The group will be set as default (.form-group)
+                    validators: {
+                        notEmpty: {
+                            message: 'La dirección es requerida, selecciona en el mapa.'
+                        }
+                    }
+                },
+                references: {
+                    // The group will be set as default (.form-group)
+                    validators: {
+                        notEmpty: {
+                            message: 'La referencia es requerida y no puede ser vacía.'
+                        },
+                        stringLength: {
+                            min: 20,
+                            max: 500,
+                            message: 'La referencia debe ser entre 20 y 500 caracteres.'
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    private registerProperty(o: {}) {
+
+    }
 
 }
 

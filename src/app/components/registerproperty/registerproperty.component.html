@@ -29,7 +29,7 @@
                 </div>
             </div>
             <div class="portlet-body form">
-                <form role="form">
+                <form id="new-property-registration-form" role="form">
                     <div class="form-body">
                         <div class="form-group selectContainer">
                             <label class="sr-only control-label">Tipo de usuario</label>
@@ -45,20 +45,20 @@
                         </div>
                         <div class="form-group">
                             <label>Precio</label>
-                            <input class="form-control" type="text" placeholder="Precio" name="price" [(ngModel)]="model.price"/> 
+                            <input class="form-control" type="number" placeholder="Precio" name="price" min="0" [(ngModel)]="model.price"/> 
                         </div>
                         <div class="form-group form-md-radios">
                             <label>Moneda</label>
                             <div class="md-radio-inline">
                                 <div class="md-radio">
-                                    <input type="radio" id="radio14" name="money" class="md-radiobtn"/>
+                                    <input type="radio" id="radio14" name="money" class="md-radiobtn" value="S" [(ngModel)]="model.money"/>
                                     <label for="radio14">
                                         <span></span>
                                         <span class="check"></span>
                                         <span class="box"></span> Soles </label>
                                 </div>
                                 <div class="md-radio has-error">
-                                    <input type="radio" id="radio15" name="money" class="md-radiobtn"/>
+                                    <input type="radio" id="radio15" name="money" class="md-radiobtn" value="D" [(ngModel)]="model.money"/>
                                     <label for="radio15">
                                         <span></span>
                                         <span class="check"></span>
@@ -68,11 +68,11 @@
                         </div>                        
                         <div class="form-group">
                             <label>Comision</label>
-                            <input class="form-control" type="text" placeholder="%" name="comission" [(ngModel)]="model.comission"/> 
+                            <input class="form-control" type="number" placeholder="%" name="comission" min="0" [(ngModel)]="model.comission"/> 
                         </div>
                         <div class="form-group">
                             <label>Area</label>
-                            <input class="form-control" type="text" placeholder="mts2" name="area" [(ngModel)]="model.area"/> 
+                            <input class="form-control" type="number" placeholder="mts2" name="area" min="0"[(ngModel)]="model.area"/> 
                         </div>
                         <div class="form-group form-md-checkboxes">
                             <label>Se encuentra amoblado?</label>
@@ -88,19 +88,19 @@
                         </div>
                         <div class="form-group">
                             <label>Ba&ntilde;os</label>
-                            <input class="form-control touchspin" type="text" placeholder="número de baños" name="bathroom" [(ngModel)]="model.bathroom"/> 
+                            <input class="form-control" type="number" placeholder="número de baños" name="bathroom" min="0" [(ngModel)]="model.bathroom"/> 
                         </div>
                         <div class="form-group">
                             <label>Cuartos</label>
-                            <input class="form-control touchspin" type="text" placeholder="número de cuartos" name="bedroom" [(ngModel)]="model.bedroom"/> 
+                            <input class="form-control" type="number" placeholder="número de cuartos" name="bedroom" min="0" [(ngModel)]="model.bedroom"/> 
                         </div>
                         <div class="form-group">
                             <label>Estacionamientos</label>
-                            <input class="form-control touchspin" type="text" placeholder="número de estacionamientos" name="garages" [(ngModel)]="model.garages"/> 
+                            <input class="form-control" type="number" placeholder="número de estacionamientos" name="garages" min="0" [(ngModel)]="model.garages"/> 
                         </div>
                         <div class="form-group">
                             <label>A&ntilde;os de Antig&uuml;edad</label>
-                            <input class="form-control touchspin" type="text" placeholder="años de antigüedad" name="yearsold" [(ngModel)]="model.yearsold"/> 
+                            <input class="form-control" type="number" placeholder="años de antigüedad" name="yearsold" min="0" [(ngModel)]="model.yearsold"/> 
                         </div>
                         <div class="form-group form-md-checkboxes">
                             <label>Detalles de la propiedad</label>
@@ -149,11 +149,15 @@
                         </div>
                         <div class="form-group">
                             <label>Latitud</label>
-                            <input class="form-control" type="text" placeholder="latitud" name="latitude" [(ngModel)]="model.latitude"/> 
+                            <input class="form-control" type="text" placeholder="latitud" name="latitude" [(ngModel)]="model.latitude" readonly/> 
                         </div>
                         <div class="form-group">
                             <label>Longitud</label>
-                            <input class="form-control" type="text" placeholder="longitud" name="longitude" [(ngModel)]="model.longitude"/> 
+                            <input class="form-control" type="text" placeholder="longitud" name="longitude" [(ngModel)]="model.longitude" readonly/> 
+                        </div>
+                        <div class="form-group">
+                            <label>Direccion</label>
+                            <input class="form-control" type="text" placeholder="Direccion por google" name="address" [(ngModel)]="model.address" readonly/> 
                         </div>
                         <div class="form-group">
                             <label>Referencias</label>
@@ -162,8 +166,17 @@
                         <div class="form-group">
                             <label>Mapa</label>
                             <input placeholder="Busca un lugar" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control" #search [formControl]="searchControl">
-                            <agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom" (mapClick)="mapClicked($event)">
-                                <agm-marker [markerDraggable]="true" [latitude]="latitude" [longitude]="longitude"></agm-marker>
+                            <agm-map 
+                                [latitude]="latitude" 
+                                [longitude]="longitude" 
+                                [scrollwheel]="false" 
+                                [zoom]="zoom" 
+                                (mapClick)="mapClicked($event)">
+                                <agm-marker 
+                                    [markerDraggable]="true" 
+                                    [latitude]="latitude" 
+                                    [longitude]="longitude"
+                                    (dragEnd)="markerDraged($event)"></agm-marker>
                             </agm-map>
                         </div>
                         <div class="form-group">
@@ -172,7 +185,7 @@
                         </div>
                     </div>
                     <div class="form-actions">
-                        <button type="submit" class="btn blue">Submit</button>
+                        <button type="submit" class="btn blue" (click)="InitNewPropertyValidation($event)">Submit</button>
                         <button type="button" class="btn default">Cancel</button>
                     </div>
                 </form>
