@@ -31,6 +31,26 @@ export class PropertyService {
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
+    
+    public createDetailsProperty(o: {}){
+        console.log("details property", o);
+        console.log("details property", JSON.stringify(o));
+        let options = new RequestOptions({
+            headers: new Headers({ 'Content-Type': 'application/json;charset=UTF-8' })
+        });
+        return this.http.post(this.app.gs.getApiRestUrl() + this.model + '/createdetailsproperty', o, options)
+            .map((res: Response) => res.json())
+            .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+    }
+    
+    public createImgProperty(o: {}){
+        let options = new RequestOptions({
+            headers: new Headers({ 'Content-Type': 'application/json;charset=UTF-8' })
+        });
+        return this.http.post(this.app.gs.getApiRestUrl() + this.model + '/createimgproperty', o, options)
+            .map((res: Response) => res.json())
+            .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+    }
 
     public list() {
         let options = new RequestOptions({

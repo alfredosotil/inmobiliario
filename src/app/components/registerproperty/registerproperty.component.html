@@ -145,7 +145,7 @@
                         </div>
                         <div class="form-group">
                             <label>Descripcion</label>
-                            <textarea class="form-control wysihtml5 maxlength" rows="2" maxlength="1000" placeholder="coloca una descripcion precisa del inmueble" name="description" [(ngModel)]="model.description"></textarea>
+                            <textarea class="form-control wysihtml5 maxlength" rows="2" maxlength="1000" placeholder="coloca una descripcion precisa del inmueble" name="description" style="resize: vertical;" [(ngModel)]="model.description"></textarea>
                         </div>
                         <div class="form-group">
                             <label>Latitud</label>
@@ -185,12 +185,25 @@
                         </div>
                     </div>
                     <div class="form-actions">
-                        <button type="submit" class="btn blue" (click)="InitNewPropertyValidation($event)">Submit</button>
-                        <button type="button" class="btn default">Cancel</button>
+                        <button type="submit" class="btn blue btn-default mt-ladda-btn ladda-button" data-style="expand-left" data-spinner-color="#333" (click)="InitNewPropertyValidation($event)"><span class="ladda-label">Registrar Propiedad</span></button>
+                        <button type="button" class="btn default" (click)="testing()">TESTING</button>
+                        <button type="button" class="btn default">Cancelar</button>
                     </div>
                 </form>
             </div>
         </div>
         <!-- END SAMPLE FORM PORTLET-->
     </div>    
+</div>
+<div class="modal modal-static fade" id="processing-modal" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="text-center">
+                    <span class="{{message.icon}}" style="font-size: 75px;"></span>
+                    <h4>{{message.text}}</h4>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

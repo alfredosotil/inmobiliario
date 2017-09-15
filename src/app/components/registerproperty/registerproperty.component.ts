@@ -2,19 +2,13 @@ import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core'
 import { asEnumerable } from 'linq-es2015';
 import { PropertyService } from '../../services/property.service';
 import { FormControl } from '@angular/forms';
-import { } from 'googlemaps';
 import { MapsAPILoader } from '@agm/core';
-import { AgmMarker } from '@agm/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-//import { Marker } from 'ng2-map';
+import { LocalStorageService } from 'angular-2-local-storage';
 //import { RatingComponent } from 'ngx-bootstrap';
 declare var jQuery: any;
-interface marker {
-    lat: number;
-    lng: number;
-    label?: string;
-    draggable: boolean;
-}
+declare var Ladda: any;
+
 @Component({
     selector: 'app-registerproperty',
     templateUrl: './registerproperty.component.html',
@@ -26,6 +20,8 @@ export class RegisterpropertyComponent implements OnInit {
     @ViewChild("search")
     public searchElementRef: ElementRef;
     private isLoading$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+    private message = {};
+    private messages = [];
     private model = {};
     private listPropertyType = [];
     private listPropertyState = [];
@@ -42,9 +38,14 @@ export class RegisterpropertyComponent implements OnInit {
     constructor(
         private ps: PropertyService,
         private mapsAPILoader: MapsAPILoader,
-        private ngZone: NgZone
+        private ngZone: NgZone,
+        private localStorageService: LocalStorageService
     ) {
-        //    this.pos = [43.7250,-79.7699];
+        this.messages = [
+            { text: 'Enviando Informacion', icon: 'glyphicon glyphicon-refresh glyphicon-spin' },
+            { text: 'Completado', icon: 'glyphicon glyphicon-ok' },
+            { text: 'Error', icon: 'glyphicon glyphicon-remove' },
+        ];
     }
 
     ngOnInit() {
@@ -116,7 +117,9 @@ export class RegisterpropertyComponent implements OnInit {
                 limitReachedClass: "label label-danger",
                 alwaysShow: !0
             });
+            //            jQuery(".mt-ladda-btn").ladda();
             this.setDetailsGroups();
+            this.initFormValidation();
         }, 1000);
     }
 
@@ -127,15 +130,6 @@ export class RegisterpropertyComponent implements OnInit {
         });
         return checkboxes;
     }
-
-    //    public hoveringOver(value: number): void {
-    //        this.overStar = value;
-    //        this.percent = 100 * (value / this.rating.max);
-    //    };
-    //
-    //    public resetStar(): void {
-    //        this.overStar = void 0;
-    //    }
 
     private setCurrentPosition() {
         if ("geolocation" in navigator) {
@@ -172,6 +166,11 @@ export class RegisterpropertyComponent implements OnInit {
         );
     }
 
+    private getImgsProperty() {
+        let arrayImages = JSON.parse(String(this.localStorageService.get("arrayImages")));
+        return arrayImages;
+    }
+
     private setDetailsGroups() {
         //        console.log(this.listDetailsProperty)
         this.detailsgroups = asEnumerable(this.listDetailsProperty)
@@ -200,17 +199,19 @@ export class RegisterpropertyComponent implements OnInit {
         //        console.log('object ', event);
         this.latitude = $event.coords.lat;
         this.longitude = $event.coords.lng;
-        this.model['latitude'] = this.latitude;
-        this.model['longitude'] = this.longitude;
+        this.model['latitude'] = String(this.latitude);
+        this.model['longitude'] = String(this.longitude);
         this.getAddressLatLng(this.latitude, this.longitude);
+        this.validateInputForMap();
     }
 
     private mapClicked($event: any) {
         this.latitude = $event.coords.lat;
         this.longitude = $event.coords.lng;
-        this.model['latitude'] = this.latitude;
-        this.model['longitude'] = this.longitude;
+        this.model['latitude'] = String(this.latitude);
+        this.model['longitude'] = String(this.longitude);
         this.getAddressLatLng(this.latitude, this.longitude);
+        this.validateInputForMap();
     }
 
     private getAddressLatLng(lat, lng) {
@@ -234,30 +235,37 @@ export class RegisterpropertyComponent implements OnInit {
 
     public InitNewPropertyValidation(e) {
         e.preventDefault();
-        this.isLoading$.next(true);
+        Ladda.create(document.querySelector('.mt-ladda-btn')).start();
         console.log("model ", this.model);
-        let detailsProperty = this.getDetailsPropertyChecked();
-        console.log("details property", detailsProperty);
         setTimeout(() => {
-            //                        jQuery('#new-property-registration-form').data('bootstrapValidator').validate();
-        }, 100);
+            jQuery('#new-property-registration-form').data('bootstrapValidator').validate();
+        }, 4000);
+    }
+
+    private validateInputForMap() {
+        setTimeout(() => {
+            jQuery('#new-property-registration-form').bootstrapValidator('revalidateField', 'address');
+            jQuery('#new-property-registration-form').bootstrapValidator('revalidateField', 'latitude');
+            jQuery('#new-property-registration-form').bootstrapValidator('revalidateField', 'longitude');
+        }, 500);
     }
 
     private initFormValidation() {
         jQuery('#new-property-registration-form').bootstrapValidator({
             message: 'El valor no es correcto',
-            feedbackIcons: {
-                valid: 'glyphicon glyphicon-ok',
-                invalid: 'glyphicon glyphicon-remove',
-                validating: 'glyphicon glyphicon-refresh'
-            },
+            //            feedbackIcons: {
+            //                valid: 'glyphicon glyphicon-ok',
+            //                invalid: 'glyphicon glyphicon-remove',
+            //                validating: 'glyphicon glyphicon-refresh'
+            //            },
+            feedbackIcons: 'false',
             onError: (e) => {
                 console.log('error')
-                this.isLoading$.next(false);
+                Ladda.create(document.querySelector('.mt-ladda-btn')).stop();
             },
             onSuccess: (e) => {
                 e.preventDefault();
-                this.isLoading$.next(false);
+                Ladda.create(document.querySelector('.mt-ladda-btn')).stop();
                 this.registerProperty(this.model);
             },
             fields: {
@@ -409,10 +417,53 @@ export class RegisterpropertyComponent implements OnInit {
                 }
             }
         });
+        jQuery('.datepickerjs').on('changeDate show', (e) => {
+            jQuery('#new-property-registration-form').bootstrapValidator('revalidateField', 'date_start');
+            this.model['date_start'] = e.format();
+        });
     }
 
     private registerProperty(o: {}) {
+        var x: any;
+        jQuery('#processing-modal').modal('show');
+        this.message = this.messages[0];
+        this.ps.create(o)
+            .subscribe(
+            data => x = data,
+            error => alert(error),
+            () => {
+                if (parseInt(x.id) > 0) {
+                    //                    jQuery('.ui.form').form('clear');
+                    let propertyId = x.id;
+                    this.ps.createDetailsProperty({ property: propertyId, details: this.getDetailsPropertyChecked() })
+                        .subscribe(data => x = data, error => alert(error), () => { console.log(x) });
+                    this.ps.createImgProperty({ property: propertyId, imgs: this.getImgsProperty() })
+                        .subscribe(data => x = data, error => alert(error), () => { console.log(x) });
+                    Ladda.create(document.querySelector('.mt-ladda-btn')).stop();
+                    this.localStorageService.remove('arrayImages');
+                    this.message = this.messages[1];
+                    setTimeout(function() {
+                        jQuery('#processing-modal').modal('hide');
+                    }, 1500);
+                    setTimeout(() => {
+                        jQuery('#new-property-registration-form')
+                            .bootstrapValidator('disableSubmitButtons', false)  // Enable the submit buttons
+                            .bootstrapValidator('resetForm', true);             // Reset the form
+                    }, 1500);
+                } else {
+                    this.message = this.messages[2];
+                    setTimeout(function() {
+                        jQuery('#processing-modal').modal('hide');
+                    }, 1500);
+                }
+            }
+            );
+    }
 
+    private testing() {
+        let x: any;
+        this.ps.createDetailsProperty({ 'property': 1, 'details': [1, 2, 3] })
+            .subscribe(data => x = data, error => alert(error), () => { console.log(x) });
     }
 
 }
